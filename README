@@ -1,1 +1,4 @@
 Tool to test open source implementations of Flash Player protocols and formats like AMF and RTMP.
+
+More info can be found on the EchoTest wiki page:
+http://dev.pyamf.org/wiki/EchoTest
