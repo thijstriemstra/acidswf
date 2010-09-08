@@ -190,13 +190,13 @@ def run_server(name, options, services):
     @param services: List of services for the Flash gateway.
     @type services: C{dict}
     """
-    if options.type == 'wsgi':
+    if options.amf_type == 'wsgi':
         func = run_wsgi_server(name, options, services)
-    elif options.type == 'twisted':
+    elif options.amf_type == 'twisted':
         func = run_twisted_server(name, options, services)
-    elif options.type == 'django':
+    elif options.amf_type == 'django':
         func = run_django_server(name, options, services)
-    elif options.type == 'wasd':
+    elif options.amf_type == 'wasd':
         func = run_wasd_server(name, options, services)
 
     import pyamf
@@ -207,9 +207,9 @@ def run_server(name, options, services):
     except KeyboardInterrupt:
         pass
 
-def new_httplib_client(name, options, service):
+def new_amf_client(name, options, service):
     """
-    Runs AMF services for a C{httplib} echo client.
+    Runs AMF services for a C{RemotingService} echo client.
 
     @param options: Commandline options
     @type options: C{dict}
@@ -225,7 +225,7 @@ def new_httplib_client(name, options, service):
     path = options.path
     url = "http://%s:%d/%s" % (host, port, path)
 
-    print "Started %s - httplib Client for %s" % (name, url)
+    print "Started %s - AMF Client for %s" % (name, url)
 
     gateway = RemotingService(url, logger=logging)
     echo_service = gateway.getService(service)
@@ -244,7 +244,7 @@ def new_client(name, options, service):
     @type service: C{str}
     """
     
-    return new_httplib_client(name, options, service)
+    return new_amf_client(name, options, service)
     
 def parse_args(args):
     """
@@ -254,14 +254,17 @@ def parse_args(args):
 
     parser = OptionParser()
     parser.add_option('-t', '--type', dest='type',
-        choices=('wsgi', 'twisted', 'django', 'wasd'), default='wsgi',
-        help='Determines which AMF gateway type to use')
+        choices=['amf', 'rtmp'], default='amf',
+        help='Determines which type of gateway to use: amf or rtmp [default: %default]')
+    parser.add_option('-a', '--amf-type', dest='amf_type',
+        choices=['wsgi', 'twisted', 'django', 'wasd'], default='wsgi',
+        help='Determines which AMF gateway type to use [default: %default]')
     parser.add_option('--host', dest='host', default='localhost',
-                      help='The host address for the AMF gateway')
+                      help='The host address for the gateway [default: %default]')
     parser.add_option('-p', '--port', dest='port', default=8000,
-                      help='The port number the server uses')
+                      help='The port number the server is listening on [default: %default]')
     parser.add_option('-l', '--path', dest='path', default='',
-                      help='The gateway path')
+                      help='The gateway path [default: %default]')
     parser.add_option('-s', '--service', dest='service', default='echo',
-                      help='The remote service name')
+                      help='The remote service name [default: %default]')
     return parser.parse_args(args)
