@@ -14,8 +14,8 @@ U{EchoTest<http://pyamf.org/wiki/EchoTest>} wiki page.
 from pyamf import register_class
 
 
-ECHO_NS = 'org.red5.demos.echo'
-
+ECHO_NS1 = 'org.red5.demos.echo'
+ECHO_NS2 = 'org.red5.server.webapp.echo'
 
 class RemoteClass(object):
     """
@@ -108,12 +108,6 @@ def echo(data):
 
 
 # Map ActionScript class to Python class
-ns = ECHO_NS + '.'
-try:
-    register_class(RemoteClass, ns + 'RemoteClass')
-except ValueError:
-    pass
-try:
-    register_class(ExternalizableClass, ns + 'ExternalizableClass')
-except ValueError:
-    pass
+for ns in [ECHO_NS1, ECHO_NS2]:
+    register_class(RemoteClass, ns + '.RemoteClass')
+    register_class(ExternalizableClass, ns + '.ExternalizableClass')
