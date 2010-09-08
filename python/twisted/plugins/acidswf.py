@@ -23,7 +23,7 @@ class LiveApplication(Application):
     """
 
     def clientDisconnected(self, client, reason):
-        log.debug('client "%s" disconnected: %s' % (client, reason))
+        print 'client "%s" disconnected: %s' % (client, reason)
         
 
 class WebServer(server.Site):
@@ -33,8 +33,7 @@ class WebServer(server.Site):
     
     def __init__(self, crossdomain, service):
         self.service = service
-        self.app = LiveApplication()
-
+        
         amf_services = {
             'echo': echo.echo,
             'Red5Echo': echo
@@ -56,17 +55,19 @@ class RTMPServer(ServerFactory):
     RTMP server.
     """
 
-    def __init__(self, service):
+    def __init__(self, app, service):
         self.service = service
+        ServerFactory.__init__(self, app)
 
 
 class AcidSWFService(service.Service):
     """
     AcidSWF service.
     """
+
     def startService(self):
         service.Service.startService(self)
-        log.msg('AcidSWF completed startup.')
+        log.msg('AcidSWF service completed startup.')
 
 
 class Options(usage.Options):
@@ -82,6 +83,7 @@ class Options(usage.Options):
         ['crossdomain', None, 'crossdomain.xml', 'Path to the crossdomain.xml file.'],
     ]
 
+
 class AcidSWFServiceMaker(object):
     """
     Object which knows how to construct a service.
@@ -95,7 +97,6 @@ class AcidSWFServiceMaker(object):
 
     def makeService(self, options):
         top_service = service.MultiService()
-
         acidswf_service = AcidSWFService()
         acidswf_service.setServiceParent(top_service)
 
@@ -106,12 +107,14 @@ class AcidSWFServiceMaker(object):
         web_service.setServiceParent(top_service)
         
         # rtmp
-        factory = RTMPServer(acidswf_service)
+        app = LiveApplication()
+        factory = RTMPServer( {'oflaDemo': app}, acidswf_service)
         rtmp_service = internet.TCPServer(int(options['rtmp_port']), factory,
                                          interface=options['rtmp_host'])
         rtmp_service.setServiceParent(top_service)
 
         return top_service
 
-# This variable name is irrelevent.
+
+# entry point for twistd plugin system
 service_maker = AcidSWFServiceMaker()
