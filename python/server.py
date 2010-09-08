@@ -5,11 +5,6 @@
 
 """
 Echo test server.
-
-You can use this example with the echo_test.swf client on the
-U{EchoTest<http://pyamf.org/wiki/EchoTest>} wiki page.
-
-@since: 0.1.0
 """
 
 import sys
