@@ -2,3 +2,4 @@
 twistd.*
 dropin.cache
 docs/build
+docs/themes
