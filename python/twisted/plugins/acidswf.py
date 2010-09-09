@@ -31,15 +31,15 @@ class WebServer(server.Site):
     Webserver with a AMF gateway and crossdomain.xml.
     """
     
-    def __init__(self, crossdomain, service):
-        self.service = service
-        
-        amf_services = {
-            'echo': echo.echo,
-            'Red5Echo': echo
-        }
+    def __init__(self, crossdomain, services, logLevel=logging.DEBUG):
+        observer = log.PythonLoggingObserver()
 
-        gateway = TwistedGateway(amf_services, expose_request=False, logger=logging)
+        logging.basicConfig(
+            level=logLevel, datefmt='%Y-%m-%d %H:%M:%S%z',
+            format='%(asctime)s [%(name)s] %(message)s'
+        )
+
+        gateway = TwistedGateway(services, expose_request=False, logger=logging)
 
         root = resource.Resource()
         root.putChild('', gateway)
@@ -55,8 +55,7 @@ class RTMPServer(ServerFactory):
     RTMP server.
     """
 
-    def __init__(self, app, service):
-        self.service = service
+    def __init__(self, app):
         ServerFactory.__init__(self, app)
 
 
@@ -101,14 +100,18 @@ class AcidSWFServiceMaker(object):
         acidswf_service.setServiceParent(top_service)
 
         # web
-        factory = WebServer(options['crossdomain'], acidswf_service)
+        services = {
+            'echo': echo.echo,
+            'Red5Echo': echo
+        }
+        factory = WebServer(options['crossdomain'], services)
         web_service = internet.TCPServer(int(options['amf_port']), factory,
                                          interface=options['amf_host'])
         web_service.setServiceParent(top_service)
         
         # rtmp
         app = LiveApplication()
-        factory = RTMPServer( {'oflaDemo': app}, acidswf_service)
+        factory = RTMPServer( {'oflaDemo': app})
         rtmp_service = internet.TCPServer(int(options['rtmp_port']), factory,
                                          interface=options['rtmp_host'])
         rtmp_service.setServiceParent(top_service)
