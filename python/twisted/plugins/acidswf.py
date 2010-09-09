@@ -2,7 +2,7 @@
 # See LICENSE.txt for details.
 
 """
-twistd plugin for AcidSWF.
+AcidSWF plugin for twistd.
 """
 
 import logging
