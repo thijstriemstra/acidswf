@@ -1,3 +1,6 @@
+# Copyright (c) The AcidSWF Project.
+# See LICENSE.txt for details.
+
 """
 twistd plugin for AcidSWF.
 """

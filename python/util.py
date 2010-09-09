@@ -1,4 +1,4 @@
-# Copyright (c) The PyAMF Project.
+# Copyright (c) The AcidSWF Project.
 # See LICENSE.txt for details.
 
 """
@@ -8,11 +8,10 @@ Support for:
 
  - U{Twisted<http://twistedmatrix.com>}
  - U{WSGI<http://wsgi.org>}
- - U{Django<http://djangoproject.com>}
+ - U{Django<http://www.djangoproject.com>}
  - U{WASD<http://wasd.vsm.com.au/WASD/>}
  
-You can use this example with the echo_test.swf client on the
-U{EchoTest<http://pyamf.org/wiki/EchoTest>} wiki page.
+You can use this example with the echo_test.swf clients.
 
 @since: 0.1
 """

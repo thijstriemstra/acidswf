@@ -1,13 +1,12 @@
-# Copyright (c) The PyAMF Project.
-# See LICENSE for details.
+# Copyright (c) The AcidSWF Project.
+# See LICENSE.txt for details.
 
 """
 Echo test mod_wsgi example.
 
-You can use this example with the echo_test.swf client on the
-U{EchoTest<http://pyamf.org/wiki/EchoTest>} wiki page.
+You can use this example with the echo_test.swf clients.
 
-@since: 0.1.0
+@since: 0.1
 """
 
 import sys, os.path

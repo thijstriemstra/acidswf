@@ -1,4 +1,4 @@
-# Copyright (c) The PyAMF Project.
+# Copyright (c) The AcidSWF Project.
 # See LICENSE.txt for details.
 
 """
