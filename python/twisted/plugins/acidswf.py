@@ -43,7 +43,6 @@ class WebServer(server.Site):
 
         root = resource.Resource()
         root.putChild('', gateway)
-        root.putChild('/', gateway)
         root.putChild('crossdomain.xml', static.File(crossdomain,
                       defaultType='application/xml'))
 
@@ -75,9 +74,9 @@ class Options(usage.Options):
     """
 
     optParameters = [
-        ['amf_port', 'p', 8000, 'The port number for the AMF gateway to listen on.'],
-        ['rtmp_port', 'p', 1935, 'The port number for the RTMP server to listen on.'],
         ['amf_host', None, 'localhost', 'The interface for the AMF gateway to listen on.'],
+        ['amf_port', None, 8000, 'The port number for the AMF gateway to listen on.'],
+        ['rtmp_port', None, 1935, 'The port number for the RTMP server to listen on.'],
         ['rtmp_host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
         ['crossdomain', None, 'crossdomain.xml', 'Path to the crossdomain.xml file.'],
     ]
