@@ -24,9 +24,6 @@ class LiveApplication(Application):
     """
     Live app.
     """
-
-    def clientDisconnected(self, client, reason):
-        print 'client "%s" disconnected: %s' % (client, reason)
         
 
 class WebServer(server.Site):
