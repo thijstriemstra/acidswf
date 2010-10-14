@@ -3,3 +3,5 @@ twistd.*
 dropin.cache
 docs/build
 docs/themes
+flash/bin
+flash/libs/*

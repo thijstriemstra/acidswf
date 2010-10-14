@@ -15,6 +15,7 @@ from twisted.web import server, resource, static
 from twisted.application import internet, service
 
 from rtmpy.server import ServerFactory, Application
+
 from pyamf.remoting.gateway.twisted import TwistedGateway
 
 import echo
@@ -24,6 +25,9 @@ class LiveApplication(Application):
     """
     Live app.
     """
+
+    def echo(self, data):
+        return data
         
 
 class WebServer(server.Site):
@@ -110,7 +114,7 @@ class AcidSWFServiceMaker(object):
         
         # rtmp
         app = LiveApplication()
-        factory = RTMPServer( {'oflaDemo': app})
+        factory = RTMPServer( {'oflaDemo': app, 'echo': app})
         rtmp_service = internet.TCPServer(int(options['rtmp_port']), factory,
                                          interface=options['rtmp_host'])
         rtmp_service.setServiceParent(top_service)
