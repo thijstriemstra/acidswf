@@ -1,0 +1,7 @@
+<project name="acidswf" basedir="." default="all">
+
+	<target name="all">
+		<ant antfile="flash/build.xml" target="test" useNativeBasedir="true"/>
+	</target>
+
+</project>
