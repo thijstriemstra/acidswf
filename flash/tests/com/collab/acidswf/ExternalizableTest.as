@@ -5,10 +5,10 @@ package com.collab.acidswf
 	
 	public class ExternalizableTest
 	{
-                private var tests:Array = [];
+        private var tests:Array = [];
 
-                [Ignore]
-                [Test]
+        [Ignore]
+        [Test]
 		public function ExternalizableTest()
 		{
 			super();

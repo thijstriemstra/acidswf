@@ -5,10 +5,10 @@ package com.collab.acidswf
 
 	public class CustomClassTest
 	{
-                private var tests:Array = [];
+        private var tests:Array = [];
 
-                [Ignore]
-                [Test]
+        [Ignore]
+        [Test]
 		public function customClassTest():void
 		{
 			var tmp1: EchoClass = new EchoClass();

@@ -31,7 +31,7 @@
 		<delete dir="${output.loc}" />
 	</target>
 
-	<target name="init">
+	<target name="init" depends="clean">
         <echo>Flex ${flex.version}.${flex.build}</echo>
 		<!-- Create directories needed for the build process -->
 		<mkdir dir="${output.loc}" />
@@ -41,19 +41,30 @@
 	</target>
 
 	<target name="test" depends="init">
-		<!-- Execute FlexUnit tests and publish reports -->
-		<flexunit 
+		<!-- Compile TestRunner.mxml as a SWF -->
+		<mxmlc file="${test.src.loc}/TestRunner.mxml" output="${bin.loc}/TestRunner.swf">
+			<source-path path-element="${main.src.loc}" />
+			<library-path dir="${lib.loc}" append="true">
+				<include name="*.swc" />
+			</library-path>
+			<compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
+			<compiler.headless-server>true</compiler.headless-server>
+		</mxmlc>
+		
+		<!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->
+		<flexunit swf="${bin.loc}/TestRunner.swf" 
 		    workingDir="${bin.loc}"
 		    toDir="${report.loc}" 
 			haltonfailure="false" 
 			verbose="true" 
-			localTrusted="true">
+			localTrusted="true"/>
+		<!--
 	      <source dir="${main.src.loc}" />
 	      <testSource dir="${test.src.loc}">
 	         <include name="**/*Test.as" />
 	      </testSource>
 	      <library dir="${lib.loc}" />
-	   </flexunit>
+	   </flexunit> -->
 
 		<!-- Generate readable JUnit-style reports -->
 		<junitreport todir="${report.loc}">
