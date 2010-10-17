@@ -17,12 +17,13 @@ package com.collab.acidswf.loader
 	 */	
 	public class NetConnectionLoader implements IExternalDependencyLoader
 	{
-		private var token			: ExternalDependencyToken;
-		private var connection		: NetConnection;
-		private var responder		: Responder;
-		private var testData		: *;
-		private var service			: String;
-		private var hostURL			: String;
+		private var service				: String;
+		private var hostURL				: String;
+		private var connection			: NetConnection;
+		private var responder			: Responder;
+		private var token				: ExternalDependencyToken;
+		private var testData			: Array;
+		private var calls				: Array;
 		
 		/**
 		 * Creates a new NetConnectionLoader.
@@ -32,7 +33,7 @@ package com.collab.acidswf.loader
 		 * @param data
 		 */		
 		public function NetConnectionLoader( url:String, service:String,
-											 data:* )
+											 data:Array )
 		{
 			this.hostURL = url;
 			this.service = service;
@@ -42,10 +43,12 @@ package com.collab.acidswf.loader
 		}
 		
 		/**
-		 * 
+		 * Setup and create connection to the server.
 		 */		
 		protected function connect():void
 		{
+			calls = [];
+			
 			token = new ExternalDependencyToken();
  			responder = new Responder(resultHandler, faultHandler);
 			connection = new NetConnection();
@@ -67,9 +70,9 @@ package com.collab.acidswf.loader
 		 * @param testClass
 		 * @return 
 		 */		
-		public function retrieveDependency(testClass:Class):ExternalDependencyToken
+		public function retrieveDependency( testClass:Class ):ExternalDependencyToken
 		{
-			load(testData);
+			load( testData );
 			
 			return token;
 		}
@@ -77,9 +80,15 @@ package com.collab.acidswf.loader
 		/**
 		 * @param data
 		 */		
-		public function load(data:*):void
+		public function load( data:* ):void
 		{
-			connection.call(service, responder, data);
+			var totalCalls:int = data.length;
+			var index:int = 0;
+			
+			for ( index; index < totalCalls; index++ )
+			{
+				connection.call(service, responder, data[ index ]);
+			}
 		}
 		
 		/**
@@ -111,11 +120,22 @@ package com.collab.acidswf.loader
             }
 		}
 		
+		/**
+		 * @param result
+		 */		
 		protected function resultHandler(result:*):void
 		{
-			token.notifyResult( result );
+			calls.push( result );
+			
+			if (calls.length >= testData.length )
+			{
+				token.notifyResult( calls );
+			}
 		}
 		
+		/**
+		 * @param error
+		 */		
 		protected function faultHandler(error:Object):void
 		{
 			token.notifyFault( error.code );

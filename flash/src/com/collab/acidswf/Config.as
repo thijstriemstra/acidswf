@@ -11,7 +11,7 @@ package com.collab.acidswf
 	{
 		public static const NAME		: String = "AcidSWF";
 		public static const VERSION		: String = "1.0";
-		public static const AMF_HOST	: String = "http://localhost";
+		public static const AMF_HOST	: String = "http://collab.dev";
 		public static const AMF_SERVICE	: String = "echo";
 		public static const AMF_PORT	: int = 8000;
 		
