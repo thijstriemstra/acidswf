@@ -1,7 +1,7 @@
 // Copyright (c) The AcidSWF Project.// See LICENSE.txt for details.
 package com.collab.acidswf
 {
-	import com.collab.acidswf.ExternalizableClass;
+	import com.collab.acidswf.data.ExternalizableClass;
 	
 	public class ExternalizableTest
 	{

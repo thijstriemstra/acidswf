@@ -1,7 +1,7 @@
 // Copyright (c) The AcidSWF Project.// See LICENSE.txt for details.
 package com.collab.acidswf
 {
-	import com.collab.acidswf.EchoClass;
+	import com.collab.acidswf.data.EchoClass;
 
 	public class CustomClassTest
 	{

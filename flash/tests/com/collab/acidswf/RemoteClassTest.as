@@ -1,14 +1,14 @@
 // Copyright (c) The AcidSWF Project.// See LICENSE.txt for details.
 package com.collab.acidswf
 {
-	import com.collab.acidswf.RemoteClass;
+	import com.collab.acidswf.data.RemoteClass;
 
 	public class RemoteClassTest
 	{
-                private var tests:Array = [];
+        private var tests:Array = [];
 
-                [Ignore]
-                [Test]
+        [Ignore]
+        [Test]
 		public function remoteClassTest():void
 		{
 			var remote: RemoteClass = new RemoteClass();

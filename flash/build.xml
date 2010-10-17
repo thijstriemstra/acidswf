@@ -11,8 +11,11 @@
 	<property name="report.loc" location="${output.loc}/report" />
 	<property name="dist.loc" location="${output.loc}/dist" />
 
-	<!-- You can set this directly so mxmlc will work correctly, or set FLEX_HOME as an environment variable and use as below -->
-	<property name="FLEX_HOME" location="${env.FLEX_HOME}" />
+	<!-- You can set this loction directly so mxmlc will work correctly,
+	     eg. /Applications/Adobe Flex Builder 3 Plug-in/sdks/4.1.0,
+	     or set FLEX_HOME as an environment variable and use as below,
+	     eg. ${env.FLEX_HOME} -->
+	<property name="FLEX_HOME" location="/Applications/Adobe Flex Builder 3 Plug-in/sdks/4.1.0" />
     
     <xmlproperty file="${FLEX_HOME}/flex-sdk-description.xml" keepRoot="false"
                  prefix="flex"/>
@@ -31,8 +34,14 @@
 		<delete dir="${output.loc}" />
 	</target>
 
-	<target name="init" depends="clean">
-        <echo>Flex ${flex.version}.${flex.build}</echo>
+	<target name="environment">
+		<echo>${ant.version}</echo>
+		<echo>Java ${ant.java.version}</echo>
+		<echo>Flex ${flex.version}.${flex.build}</echo>
+		<echo>Eclipse ${eclipse.running}</echo>
+	</target>
+		
+	<target name="init" depends="environment, clean">
 		<!-- Create directories needed for the build process -->
 		<mkdir dir="${output.loc}" />
 		<mkdir dir="${bin.loc}" />

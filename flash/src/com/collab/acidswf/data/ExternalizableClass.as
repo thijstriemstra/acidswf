@@ -1,5 +1,5 @@
 // Copyright (c) The AcidSWF Project.// See LICENSE.txt for details.
-package com.collab.acidswf
+package com.collab.acidswf.data
 {
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;

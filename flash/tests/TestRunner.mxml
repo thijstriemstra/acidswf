@@ -31,13 +31,16 @@ import com.collab.acidswf.XMLTest;
 
          
          public function runTests() : void {
+            var tests:Array = [ArrayCollectionTest,ArrayTest,BooleanTest,ByteArrayTest,CustomClassTest,DateTest,ExternalizableTest,NullTest,NumberTest,ObjectProxyTest,ObjectTest,RemoteClassTest,StringTest,UndefinedTest,UnsupportedTest,XMLDocumentTest,XMLTest];
+ 			var tests:Array = [ArrayTest];
+            
             var core : FlexUnitCore = new FlexUnitCore();
             core.addListener(new CIListener());
             core.addListener( new TraceListener() );
             
 			var request:Request = Request.qualifyClasses.apply(
 					null, 
-[ArrayCollectionTest,ArrayTest,BooleanTest,ByteArrayTest,CustomClassTest,DateTest,ExternalizableTest,NullTest,NumberTest,ObjectProxyTest,ObjectTest,RemoteClassTest,StringTest,UndefinedTest,UnsupportedTest,XMLDocumentTest,XMLTest]
+					tests
 				);
             core.run(request);
          }
