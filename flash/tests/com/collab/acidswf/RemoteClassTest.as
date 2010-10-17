@@ -2,15 +2,10 @@
 package com.collab.acidswf
 {
 	import com.collab.acidswf.data.RemoteClass;
-
-	public class RemoteClassTest
-	{
-        private var tests:Array = [];
-
-        [Ignore]
-        [Test]
-		public function remoteClassTest():void
-		{
+	import com.collab.acidswf.loader.NetConnectionLoader;		import org.flexunit.runners.Parameterized;	import org.hamcrest.assertThat;	import org.hamcrest.object.equalTo;	import org.hamcrest.object.instanceOf;		[RunWith("org.flexunit.runners.Parameterized")]	/**	 * Remote class tests.	 * 	 * @language 3.0	 * @playerversion 9.0	 * @since 1.0 	 */	public class RemoteClassTest
+	{		private var foo					: Parameterized; 		private static var testData		: Array = getData();		public static var gateway		: NetConnectionLoader = new NetConnectionLoader(															Config.getAMFHostURL(),															Config.getAMFService(),															testData );       	[DataPoints(loader="gateway")]		public static var result		: Array;				[Test]		public function create():void		{			assertThat(result[0], instanceOf( RemoteClass ));		}		
+        private static function getData():Array
+		{			var tests:Array = [];			
 			var remote: RemoteClass = new RemoteClass();
 			remote.attribute1 = "one";
 			remote.attribute2 = 2;
@@ -36,7 +31,7 @@ package com.collab.acidswf
 			var remote4: RemoteClass = new RemoteClass();
 			remote4.attribute1 = "four";
 			remote4.attribute2 = 1185292800000;
-			tests.push(remote4);
+			tests.push(remote4);						return tests;
 		}
 		
 	}
