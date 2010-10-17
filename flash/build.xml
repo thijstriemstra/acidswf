@@ -38,7 +38,6 @@
 		<echo>${ant.version}</echo>
 		<echo>Java ${ant.java.version}</echo>
 		<echo>Flex ${flex.version}.${flex.build}</echo>
-		<echo>Eclipse ${eclipse.running}</echo>
 	</target>
 		
 	<target name="init" depends="environment, clean">
