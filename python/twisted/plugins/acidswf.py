@@ -14,8 +14,10 @@ from twisted.plugin import IPlugin
 from twisted.web import server, resource, static
 from twisted.application import internet, service
 
+from rtmpy import __version__
 from rtmpy.server import ServerFactory, Application
 
+from pyamf import version
 from pyamf.remoting.gateway.twisted import TwistedGateway
 
 import echo
@@ -69,6 +71,8 @@ class AcidSWFService(service.Service):
 
     def startService(self):
         service.Service.startService(self)
+        log.msg('PyAMF %s' % str(version))
+        log.msg('RTMPy %s' % str(__version__))
         log.msg('AcidSWF service completed startup.')
 
 
