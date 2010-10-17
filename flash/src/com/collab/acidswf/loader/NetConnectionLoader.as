@@ -106,7 +106,7 @@ package com.collab.acidswf.loader
                     break;
                     
                 default:
-                    token.notifyFault( "netstatuError: " + code );
+                    token.notifyFault( "Error connecting: " + code );
                     break;
             }
 		}
