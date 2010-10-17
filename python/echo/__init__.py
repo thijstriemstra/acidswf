@@ -13,6 +13,7 @@ mappings related to the echo_test clients.
 from pyamf import register_class
 
 
+ECHO_NS0 = 'com.collab.acidswf'
 ECHO_NS1 = 'org.red5.demos.echo'
 ECHO_NS2 = 'org.red5.server.webapp.echo'
 
@@ -107,6 +108,6 @@ def echo(data):
 
 
 # Map ActionScript class to Python class
-for ns in [ECHO_NS1, ECHO_NS2]:
+for ns in [ECHO_NS0, ECHO_NS1, ECHO_NS2]:
     register_class(RemoteClass, ns + '.RemoteClass')
     register_class(ExternalizableClass, ns + '.ExternalizableClass')

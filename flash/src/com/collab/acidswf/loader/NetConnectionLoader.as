@@ -5,6 +5,7 @@ package com.collab.acidswf.loader
 	import flash.events.NetStatusEvent;
 	import flash.events.SecurityErrorEvent;
 	import flash.net.NetConnection;
+	import flash.net.ObjectEncoding;
 	import flash.net.Responder;
 	
 	import org.flexunit.runner.external.ExternalDependencyToken;
@@ -52,6 +53,7 @@ package com.collab.acidswf.loader
 			token = new ExternalDependencyToken();
  			responder = new Responder(resultHandler, faultHandler);
 			connection = new NetConnection();
+			connection.objectEncoding = ObjectEncoding.AMF3;
 			
 			connection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
             connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityError);
