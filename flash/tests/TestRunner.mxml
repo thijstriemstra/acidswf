@@ -32,7 +32,7 @@ import com.collab.acidswf.XMLTest;
          
          public function runTests() : void {
             var tests:Array = [ArrayCollectionTest,ArrayTest,BooleanTest,ByteArrayTest,CustomClassTest,DateTest,ExternalizableTest,NullTest,NumberTest,ObjectProxyTest,ObjectTest,RemoteClassTest,StringTest,UndefinedTest,UnsupportedTest,XMLDocumentTest,XMLTest];
- 			var tests:Array = [ArrayCollectionTest, ArrayTest, BooleanTest, ByteArrayTest, CustomClassTest, DateTest, ExternalizableTest];
+ 			var tests:Array = [ArrayCollectionTest, ArrayTest, BooleanTest, ByteArrayTest, CustomClassTest, DateTest, ExternalizableTest, NullTest, NumberTest];
             
             var core : FlexUnitCore = new FlexUnitCore();
             core.addListener(new CIListener());

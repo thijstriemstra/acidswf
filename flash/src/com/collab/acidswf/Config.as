@@ -3,6 +3,8 @@
 package com.collab.acidswf
 {
 	/**
+	 * Configuration data.
+	 * 
 	 * @language 3.0
 	 * @playerversion 9.0
 	 * @since 1.0 

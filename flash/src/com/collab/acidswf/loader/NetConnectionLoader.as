@@ -12,6 +12,8 @@ package com.collab.acidswf.loader
 	import org.flexunit.runner.external.IExternalDependencyLoader;
 	
 	/**
+	 * Custom FlexUnit dependency loader for AcidSWF.
+	 * 
 	 * @language 3.0
 	 * @playerversion 9.0
 	 * @since 1.0 

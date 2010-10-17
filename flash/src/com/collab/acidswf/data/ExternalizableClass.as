@@ -6,12 +6,14 @@ package com.collab.acidswf.data
 	import flash.utils.IExternalizable;
 	
 	[RemoteClass(alias="com.collab.acidswf.ExternalizableClass")]
-
+	/**	 * Test class implementing IExternalizable.	 * 	 * @language 3.0	 * @playerversion 9.0	 * @since 1.0 	 */
 	public class ExternalizableClass implements IExternalizable 
 	{
 		public var valid	: Number;
 		public var failed	: Number;
-		
+				/**
+		 * Creates a new ExternalizableClass instance.
+		 */		
 		public function ExternalizableClass() 
 		{
 			valid = 0;
