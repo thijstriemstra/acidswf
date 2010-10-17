@@ -34,9 +34,9 @@ package com.collab.acidswf.loader
 		public function NetConnectionLoader( url:String, service:String,
 											 data:* )
 		{
-			hostURL = url;
-			service = service;
-			testData = data;
+			this.hostURL = url;
+			this.service = service;
+			this.testData = data;
 			
 			connect();
 		}
