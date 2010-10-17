@@ -111,11 +111,8 @@ package com.collab.acidswf.loader
                 case "NetConnection.Connect.Success":
                     break;
                     
-                case "NetStream.Play.StreamNotFound":
-                    break;
-                    
                 default:
-                    token.notifyFault( "Error connecting: " + code );
+                    token.notifyFault( "\nError connecting: " + code + " (URL: " + hostURL + ")");
                     break;
             }
 		}
