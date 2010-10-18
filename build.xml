@@ -1,7 +1,12 @@
-<project name="acidswf" basedir="." default="all">
+<project name="AcidSWF" basedir="." default="all">
 
+	<loadproperties srcFile="build.properties"/>
+	
 	<target name="all">
+		<echo>${ant.project.name} ${version}</echo>
+		<echo>http://${amf.host}:${amf.port}</echo>
+		
 		<ant antfile="flash/build.xml" target="test" inheritall="false"/>
 	</target>
 
-</project>
+</project> 
