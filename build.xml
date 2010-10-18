@@ -36,12 +36,12 @@
 	<target name="all" depends="config">
         <parallel>
             <exec executable="twistd" spawn="false" dir="python">
-                <arg value="-n"/>
+                <arg value="--nodaemon"/>
                 <arg value="acidswf"/>
-                <arg value="--amf_host=${amf.host}"/>
-                <arg value="--amf_port=${amf.port}"/>
-                <arg value="--rtmp_port=${rtmp.port}"/>
-                <arg value="--rtmp_host=${rtmp.host}"/>
+                <arg value="--amf-host=${amf.host}"/>
+                <arg value="--amf-port=${amf.port}"/>
+                <arg value="--rtmp-port=${rtmp.port}"/>
+                <arg value="--rtmp-host=${rtmp.host}"/>
             </exec>
             <sequential>
                 <sleep seconds="5"/>

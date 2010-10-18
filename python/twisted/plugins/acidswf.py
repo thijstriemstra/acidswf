@@ -3,7 +3,10 @@
 
 """
 AcidSWF plugin for twistd.
+
+:see: http://twistedmatrix.com
 """
+
 
 import logging
 
@@ -37,7 +40,8 @@ class WebServer(server.Site):
     Webserver with a AMF gateway and crossdomain.xml.
     """
     
-    def __init__(self, crossdomain, services, logLevel=logging.DEBUG):
+    def __init__(self, services, logLevel=logging.ERROR,
+                 crossdomain='crossdomain.xml'):
         observer = log.PythonLoggingObserver()
 
         logging.basicConfig(
@@ -45,7 +49,8 @@ class WebServer(server.Site):
             format='%(asctime)s [%(name)s] %(message)s'
         )
 
-        gateway = TwistedGateway(services, expose_request=False, logger=logging)
+        gateway = TwistedGateway(services, expose_request=False,
+                                 logger=logging)
 
         root = resource.Resource()
         root.putChild('', gateway)
@@ -82,11 +87,12 @@ class Options(usage.Options):
     """
 
     optParameters = [
-        ['amf_host', None, 'localhost', 'The interface for the AMF gateway to listen on.'],
-        ['amf_port', None, 8000, 'The port number for the AMF gateway to listen on.'],
-        ['rtmp_port', None, 1935, 'The port number for the RTMP server to listen on.'],
-        ['rtmp_host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
-        ['crossdomain', None, 'crossdomain.xml', 'Path to the crossdomain.xml file.'],
+        ['log-level', None, logging.ERROR, 'Log level.'],
+        ['amf-host', None, 'localhost', 'The interface for the AMF gateway to listen on.'],
+        ['amf-port', None, 8000, 'The port number for the AMF gateway to listen on.'],
+        ['rtmp-port', None, 1935, 'The port number for the RTMP server to listen on.'],
+        ['rtmp-host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
+        ['crossdomain', None, 'crossdomain.xml', 'Path to a crossdomain.xml file.'],
     ]
 
 
@@ -111,16 +117,16 @@ class AcidSWFServiceMaker(object):
             'echo': echo.echo,
             'Red5Echo': echo
         }
-        factory = WebServer(options['crossdomain'], services)
-        web_service = internet.TCPServer(int(options['amf_port']), factory,
-                                         interface=options['amf_host'])
+        factory = WebServer(services, options['log-level'], options['crossdomain'])
+        web_service = internet.TCPServer(int(options['amf-port']), factory,
+                                         interface=options['amf-host'])
         web_service.setServiceParent(top_service)
         
         # rtmp
         app = LiveApplication()
         factory = RTMPServer( {'oflaDemo': app, 'echo': app})
-        rtmp_service = internet.TCPServer(int(options['rtmp_port']), factory,
-                                         interface=options['rtmp_host'])
+        rtmp_service = internet.TCPServer(int(options['rtmp-port']), factory,
+                                         interface=options['rtmp-host'])
         rtmp_service.setServiceParent(top_service)
 
         return top_service
