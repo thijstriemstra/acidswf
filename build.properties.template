@@ -1,0 +1,16 @@
+# GENERAL
+version=1.0
+
+# AMF
+amf.host=localhost
+amf.port=8000
+amf.service=echo
+amf.protocol=http
+amf.url=${amf.protocol}://${amf.host}:${amf.port}
+
+# RTMP
+rtmp.host=${amf.host}
+rtmp.port=1935
+rtmp.protocol=rtmp
+rtmp.url=${rtmp.protocol}://${rtmp.host}:${rtmp.port}
+rtmp.app=oflaDemo
