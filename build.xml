@@ -2,11 +2,52 @@
 
 	<loadproperties srcFile="build.properties"/>
 	
-	<target name="all">
-		<echo>${ant.project.name} ${version}</echo>
-		<echo>http://${amf.host}:${amf.port}</echo>
+    <property name="bin" value="flash/bin"/>
+    <property name="assets" value="flash/assets"/>
+    <property name="config.report" value="env-config-report.txt"/>
+    
+	<target name="config">
+        <copy file="${assets}/${config.report}"
+              todir="${bin}" overwrite="true"
+              verbose="false"/>
+              
+		<replace 
+		    file="${bin}/${config.report}">
+		  <replacefilter 
+		    token="@projectName@" value="${ant.project.name} ${version}"/>
+		  <replacefilter 
+		    token="@amfHost@" value="${amf.url}"/>
+		  <replacefilter 
+		    token="@amfService@" value="${amf.service}"/>
+          <replacefilter 
+		    token="@rtmpHost@" value="${rtmp.url}"/>
+		  <replacefilter 
+		    token="@rtmpApp@" value="${rtmp.app}"/>
+		</replace>
 		
-		<ant antfile="flash/build.xml" target="test" inheritall="false"/>
+        <loadfile property="config.output"
+                  srcFile="${bin}/${config.report}"/>
+
+        <echo></echo>
+        <echo>${config.output}</echo>
+        <echo></echo>
+	</target>
+		
+	<target name="all" depends="config">
+        <parallel>
+            <exec executable="twistd" spawn="false" dir="python">
+                <arg value="-n"/>
+                <arg value="acidswf"/>
+                <arg value="--amf_host=${amf.host}"/>
+                <arg value="--amf_port=${amf.port}"/>
+                <arg value="--rtmp_port=${rtmp.port}"/>
+                <arg value="--rtmp_host=${rtmp.host}"/>
+            </exec>
+            <sequential>
+                <sleep seconds="5"/>
+                <ant antfile="flash/build.xml" target="test" inheritall="false"/>
+            </sequential>
+        </parallel>
 	</target>
 
 </project> 
