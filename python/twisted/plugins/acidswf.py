@@ -89,6 +89,7 @@ class Options(usage.Options):
     optParameters = [
         ['log-level', None, logging.ERROR, 'Log level.'],
         ['amf-host', None, 'localhost', 'The interface for the AMF gateway to listen on.'],
+        ['amf-service', None, 'acidswf', 'The service name.'],
         ['amf-port', None, 8000, 'The port number for the AMF gateway to listen on.'],
         ['rtmp-port', None, 1935, 'The port number for the RTMP server to listen on.'],
         ['rtmp-host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
@@ -114,8 +115,8 @@ class AcidSWFServiceMaker(object):
 
         # web
         services = {
-            'echo': echo.echo,
-            'Red5Echo': echo
+            options['amf-service']: echo.echo,
+            options['amf-service'] + "RO": echo
         }
         factory = WebServer(services, options['log-level'], options['crossdomain'])
         web_service = internet.TCPServer(int(options['amf-port']), factory,

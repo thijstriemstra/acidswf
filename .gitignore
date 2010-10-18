@@ -7,3 +7,4 @@ docs/build
 docs/themes
 flash/bin
 flash/libs/*
+flash/src/com/collab/acidswf/Config.as

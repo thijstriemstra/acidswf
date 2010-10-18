@@ -11,11 +11,15 @@ package com.collab.acidswf
 	 */	
 	public class Config
 	{
-		public static const NAME		: String = "AcidSWF";
-		public static const VERSION		: String = "1.0";
-		public static const AMF_HOST	: String = "http://collab.dev";
-		public static const AMF_SERVICE	: String = "echo";
-		public static const AMF_PORT	: int = 8000;
+		public static const NAME		: String = "@projectName@";
+		public static const VERSION		: String = "@projectVersion@";
+		public static const AMF_HOST	: String = "@amfHost@";
+		public static const AMF_SERVICE	: String = "@amfService@";
+		public static const AMF_PORT	: int = @amfPort@;
+                public static const RTMP_HOST	: String = "@rtmpHost@";
+                public static const RTMP_PORT	: int = @rtmpPort@;
+                public static const RTMP_APP	: String = "@rtmpApp@";
+                public static const RTMP_PROTOCOL : String = "@rtmpProtocol@";
 		
 		/**
 		 * @return 

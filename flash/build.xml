@@ -2,6 +2,8 @@
 	<!-- setup a prefix for all environment variables -->
 	<property environment="env" />
 	
+    <loadproperties srcFile="../build.properties"/>
+    
 	<!-- Setup paths for build -->
 	<property name="main.src.loc" location="${basedir}/src" />
 	<property name="test.src.loc" location="${basedir}/tests" />
@@ -46,6 +48,31 @@
 		<mkdir dir="${bin.loc}" />
 		<mkdir dir="${report.loc}" />
 		<mkdir dir="${dist.loc}" />
+        <copy file="assets/Config.as"
+              todir="${main.src.loc}/com/collab/acidswf" overwrite="true"
+              verbose="false"/>
+              
+		<replace 
+		    file="${main.src.loc}/com/collab/acidswf/Config.as">
+		  <replacefilter 
+		    token="@projectName@" value="${ant.project.name}"/>
+          <replacefilter 
+		    token="@projectVersion@" value="${version}"/>
+		  <replacefilter 
+		    token="@amfHost@" value="${amf.protocol}://${amf.host}"/>
+          <replacefilter 
+		    token="@amfPort@" value="${amf.port}"/>
+		  <replacefilter 
+		    token="@amfService@" value="${amf.service}"/>
+          <replacefilter 
+		    token="@rtmpHost@" value="${rtmp.host}"/>
+          <replacefilter 
+		    token="@rtmpProtocol@" value="${rtmp.protocol}"/>
+           <replacefilter 
+		    token="@rtmpPort@" value="${rtmp.port}"/>
+		  <replacefilter 
+		    token="@rtmpApp@" value="${rtmp.app}"/>
+		</replace>
 	</target>
 
 	<target name="test" depends="init">
