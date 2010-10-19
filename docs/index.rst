@@ -4,15 +4,35 @@ Overview
 AcidSWF provides a test suite for AMF and RTMP implementations, protocols used
 primarily by the Adobe Flash Player.
 
-It was developed using Python_ to test the PyAMF_ and RTMPy_ libraries, but the goal
-is to make it work for any implementation (Red5_, BlazeDS_, FMS_ etc) that is
-compliant with the Adobe Flash Player.
+AcidSWF was developed using Python_ to test the PyAMF_ and RTMPy_ libraries, but 
+the goal is to make it work for any implementation (Red5_, BlazeDS_, FMS_ etc) 
+that is compliant with the Adobe Flash Player.
+
+AcidSWF consists of an Ant_ build script that controls:
+
+- AMF/RTMP server
+- FlexUnit_ test suite
+- Adobe Flash Player 
+
+The build script performs the following tasks:
+
+- FlexUnit_ opens the test SWF with the Flash Player
+- the Flash Player test suite sends a payload to the AMF/RTMP server
+- the server parses the payload and returns it back to the Flash Player
+- the unit test verifies if the result is equal to the payload
+- the Flash Player notifies FlexUnit_ about the test results
+
+When all tests completed, or any errors occur, the build script will:
+
+- shut down the server
+- close the Flash Player
+- generate an HTML report with the test results
 
 
 Download
 --------
 
-We use Git_ for source control. Grab the source (`browse online`_)::
+AcidSWF uses Git_ for source control. Grab the source (`browse online`_)::
 
     git clone http://github.com/thijstriemstra/acidswf
 
@@ -107,8 +127,10 @@ It should print a startup text::
 .. _PyAMF:    http://pyamf.org
 .. _RTMPy:    http://rtmpy.org
 .. _Red5:     http://red5.org
+.. _Ant:      http://ant.apache.org
 .. _BlazeDS:  
 .. _FMS:      
+.. _FlexUnit:
 .. _Python:         http://python.org
 .. _Git:      http://git-scm.com
 .. _browse online:  http://github.com/thijstriemstra/acidswf
