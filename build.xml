@@ -41,8 +41,10 @@
                     <arg value="acidswf"/>
                     <arg value="--amf-host=${amf.host}"/>
                     <arg value="--amf-port=${amf.port}"/>
+                    <arg value="--amf-service=${amf.service}"/>
                     <arg value="--rtmp-port=${rtmp.port}"/>
                     <arg value="--rtmp-host=${rtmp.host}"/>
+                    <arg value="--rtmp-app=${rtmp.app}"/>
                 </exec>
             </daemons>
             <sequential>

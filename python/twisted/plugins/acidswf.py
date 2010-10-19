@@ -93,6 +93,7 @@ class Options(usage.Options):
         ['amf-port', None, 8000, 'The port number for the AMF gateway to listen on.'],
         ['rtmp-port', None, 1935, 'The port number for the RTMP server to listen on.'],
         ['rtmp-host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
+        ['rtmp-app', None, 'acidswf', 'The RTMP application name.'],
         ['crossdomain', None, 'crossdomain.xml', 'Path to a crossdomain.xml file.'],
     ]
 
