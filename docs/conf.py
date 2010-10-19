@@ -42,7 +42,7 @@ master_doc = 'index'
 # General information about the project.
 project = 'AcidSWF'
 url = 'http://github.com/thijstriemstra/acidswf'
-description = 'AMF/RTMP tools'
+description = 'Test suite for AMF and RTMP implementations'
 copyright = "Copyright &#169; 2007-%s The <a href='%s'>%s</a> Project. All rights reserved." % (
             time.strftime('%Y'), url, project)
 
@@ -224,4 +224,4 @@ man_pages = [
 
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'http://docs.python.org/': None}
+#intersphinx_mapping = {'http://docs.python.org/': None}

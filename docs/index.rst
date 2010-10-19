@@ -1,24 +1,20 @@
 Overview
 ========
 
-This project provides Python_ tools that allow you to echo data from the Adobe Flash Player to a server, and
-verify on the client if the returned data is valid and the same as the original data.
+AcidSWF provides a test suite for AMF and RTMP implementations, protocols used
+primarily by the Adobe Flash Player.
+
+It was developed using Python_ to test the PyAMF_ and RTMPy_ libraries, but the goal
+is to make it work for any implementation (Red5_, BlazeDS_, FMS_ etc) that is
+compliant with the Adobe Flash Player.
+
 
 Download
 --------
 
-1. the AcidSWF source (`browse online`_)::
+We use Git_ for source control. Grab the source (`browse online`_)::
 
     git clone http://github.com/thijstriemstra/acidswf
-
-2. Compiled SWF in the Red5_ trunk: 
-
- - http://red5.googlecode.com/svn/flash/trunk/deploy/echo_test.swf
-
-3. (optional) SWF source (Actionscript 3.0/MXML) in the Red5 trunk:
-
- - http://red5.googlecode.com/svn/flash/trunk/echo
- - http://red5.googlecode.com/svn/flash/trunk/classes/org/red5/samples/echo
 
 
 Getting Started
@@ -108,9 +104,14 @@ It should print a startup text::
     Started Echo Test - WSGI server on http://192.168.1.100:8000
 
 
+.. _PyAMF:    http://pyamf.org
+.. _RTMPy:    http://rtmpy.org
+.. _Red5:     http://red5.org
+.. _BlazeDS:  
+.. _FMS:      
 .. _Python:         http://python.org
+.. _Git:      http://git-scm.com
 .. _browse online:  http://github.com/thijstriemstra/acidswf
-.. _Red5:           http://red5.org
 .. _echo test server: http://github.com/thijstriemstra/acidswf/blob/master/python/server.py
 .. _WSGI:	    http://wsgi.org
 .. _Twisted:        http://twistedmatrix.com
