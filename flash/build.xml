@@ -7,7 +7,7 @@
 	<!-- Setup paths for build -->
 	<property name="main.src.loc" location="${basedir}/src" />
 	<property name="test.src.loc" location="${basedir}/tests" />
-	<property name="lib.loc" location="${basedir}/libs" />
+	<property name="lib.loc" location="${basedir}/lib" />
 	<property name="bin.loc" location="${basedir}/bin" />
     <property name="output.loc" location="${bin.loc}" />
 	<property name="report.loc" location="${output.loc}/report" />

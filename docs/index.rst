@@ -81,9 +81,20 @@ Setup
 
     git clone http://github.com/thijstriemstra/acidswf
 
-#. Set the `FLEX_HOME` environment variable and point it to the root of your Flex SDK. For Unix::
+#. Set the ``FLEX_HOME`` environment variable and point it to the root of your Flex SDK. For Unix::
 
     export FLEX_HOME="/Applications/Adobe Flex Builder 3 Plug-in/sdks/4.1.0"
+
+#. Create a new folder in ``/path/to/acidswf/flash/lib`` and then copy the files for
+   the following libraries into that folder:
+
+  - `Hamcrest AS3`_ 
+   - ``hamcrest-{VERSION}.swc``
+  - FlexUnit_
+   - ``flexunit-cilistener-{VERSION}.swc``
+   - ``flexunit-core-as3-{VERSION}.swc``
+   - ``flexunit-uilistener-{VERSION}.swc``
+   - ``flexUnitTasks-{VERSION}.jar``
 
 
 Running AcidSWF
@@ -110,7 +121,7 @@ Running AcidSWF
 .. _Java:     http://www.java.com
 .. _BlazeDS:  http://opensource.adobe.com/wiki/display/blazeds/BlazeDS
 .. _FMS:      http://www.adobe.com/products/flashmediaserver
-.. _FlexUnit:    http://opensource.adobe.com/wiki/display/flexunit/FlexUnit
+.. _FlexUnit:    http://flexunit.org
 .. _Python:         http://python.org
 .. _Git:      http://git-scm.com
 .. _browse online:  http://github.com/thijstriemstra/acidswf
