@@ -7,5 +7,5 @@ dropin.cache
 docs/build
 docs/themes
 flash/bin
-flash/libs/*
+flash/lib
 flash/src/com/collab/acidswf/Config.as
