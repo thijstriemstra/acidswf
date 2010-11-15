@@ -77,7 +77,7 @@ class AcidSWFService(service.Service):
     def startService(self):
         service.Service.startService(self)
         log.msg('PyAMF %s' % str(version))
-        log.msg('RTMPy %s' % str(__version__))
+        log.msg('RTMPy %s' % '.'.join([str(x) for x in __version__]))
         log.msg('AcidSWF service completed startup.')
 
 
