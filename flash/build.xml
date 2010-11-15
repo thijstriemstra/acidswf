@@ -17,7 +17,7 @@
 	     eg. /Applications/Adobe Flex Builder 3 Plug-in/sdks/4.1.0,
 	     or set FLEX_HOME as an environment variable and use as below,
 	     eg. ${env.FLEX_HOME} -->
-	<property name="FLEX_HOME" location="/Applications/Adobe Flex Builder 3 Plug-in/sdks/4.1.0" />
+	<property name="FLEX_HOME" location="${env.FLEX_HOME}" />
     
     <xmlproperty file="${FLEX_HOME}/flex-sdk-description.xml" keepRoot="false"
                  prefix="flex"/>

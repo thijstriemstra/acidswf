@@ -4,11 +4,11 @@ Overview
 AcidSWF provides a test suite for AMF_ and RTMP_ server and client implementations,
 protocols used primarily by the Adobe `Flash Player`_.
 
-AcidSWF was developed using Python_ to test the PyAMF_ and RTMPy_ libraries, but 
+It was developed using Python_ to test the PyAMF_ and RTMPy_ libraries, but 
 the goal is to make it work for any AMF/RTMP implementation (Red5_, BlazeDS_, FMS_
 etc) that is compliant with the Flash Player.
 
-AcidSWF consists of an Ant_ build script that controls:
+The package consists of an Ant_ build script that controls:
 
 - AMF/RTMP server
 - FlexUnit test suite
@@ -42,19 +42,36 @@ Dependencies
 
 To use AcidSWF you'll need the following software:
 
-- Ant_ >= 1.7
-- `Flex SDK`_ > 4.1
-- FlexUnit_ >= 4.1
-- `Flash Player`_ (Debugger) >= 9.0
-- `Hamcrest AS3`_ >= 1.0.2
-- Java_ >= 1.6
+===========================  ========
+Name                         Version
+===========================  ========
+Ant_                         1.7
+`Flex SDK`_                  4.1
+FlexUnit_                    4.1
+`Flash Player`_ (Debugger)   9.0
+`Hamcrest AS3`_              1.0.2
+Java_                        1.5
+===========================  ========
 
-The default configuration for Python_ also requires:
+The default configuration for Python also requires:
 
-- Python_ >= 2.5
-- Twisted_ >= 8.0
-- PyAMF_ >= 0.6
-- RTMPy_ >= 0.1
+===========================  ========
+Name                         Version
+===========================  ========
+Python_                      2.5
+Twisted_                     8.0
+PyAMF_                       0.6
+RTMPy_                       0.1
+===========================  ========
+
+To build the documentation you need the following Python libraries:
+
+===========================  ========
+Name                         Version
+===========================  ========
+Sphinx_                      1.0
+Beam_ theme                  N/A
+===========================  ========
 
 
 Configuration
@@ -65,20 +82,22 @@ Running AcidSWF
 ---------------
 
 
-.. _AMF:
-.. _RTMP:
-.. _Flash Player:
+.. _AMF:	http://en.wikipedia.org/wiki/AMF
+.. _RTMP:       http://en.wikipedia.org/wiki/RTMP
+.. _Flash Player:   http://www.adobe.com/products/flashplayer
 .. _PyAMF:    http://pyamf.org
 .. _RTMPy:    http://rtmpy.org
 .. _Red5:     http://red5.org
 .. _Ant:      http://ant.apache.org
-.. _Flex SDK:
-.. _Hamcrest AS3:
+.. _Sphinx:   http://sphinx.pocoo.org
+.. _Beam:     http://github.com/collab-project/sphinx-themes/tree/master/source/themes/beam
+.. _Flex SDK:    http://opensource.adobe.com/wiki/display/flexsdk/Flex+SDK
+.. _Hamcrest AS3: http://github.com/drewbourne/hamcrest-as3
 .. _Twisted:  http://twistedmatrix.com
-.. _Java:     
-.. _BlazeDS:  
-.. _FMS:      
-.. _FlexUnit:
+.. _Java:     http://www.java.com
+.. _BlazeDS:  http://opensource.adobe.com/wiki/display/blazeds/BlazeDS
+.. _FMS:      http://www.adobe.com/products/flashmediaserver
+.. _FlexUnit:    http://opensource.adobe.com/wiki/display/flexunit/FlexUnit
 .. _Python:         http://python.org
 .. _Git:      http://git-scm.com
 .. _browse online:  http://github.com/thijstriemstra/acidswf
