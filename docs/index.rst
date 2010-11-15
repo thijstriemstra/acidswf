@@ -40,7 +40,7 @@ AcidSWF uses Git_ for source control. Grab the source (or `browse online`_)::
 Dependencies
 ------------
 
-To use AcidSWF you'll need the following software:
+To use AcidSWF you'll need the following software pre-installed on your system:
 
 ===========================  ========
 Name                         Version
@@ -74,12 +74,25 @@ Beam_ theme                  N/A
 ===========================  ========
 
 
-Configuration
--------------
+Setup
+-----
+
+#. Grab the source::
+
+    git clone http://github.com/thijstriemstra/acidswf
+
+#. Set the `FLEX_HOME` environment variable and point it to the root of your Flex SDK. For Unix::
+
+    export FLEX_HOME="/Applications/Adobe Flex Builder 3 Plug-in/sdks/4.1.0"
 
 
 Running AcidSWF
 ---------------
+
+- Run Ant from the root of your AcidSWF source directory::
+
+    ant
+
 
 
 .. _AMF:	http://en.wikipedia.org/wiki/AMF
