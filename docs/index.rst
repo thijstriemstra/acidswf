@@ -28,15 +28,6 @@ When all tests completed, or any errors occur, the build script will:
 - Close the Flash Player
 - Generate an HTML report with the test results
 
-
-Download
---------
-
-AcidSWF uses Git_ for source control. Grab the source (or `browse online`_)::
-
-    git clone http://github.com/thijstriemstra/acidswf
-
-
 Dependencies
 ------------
 
@@ -64,7 +55,7 @@ PyAMF_                       0.6
 RTMPy_                       0.1
 ===========================  ========
 
-To build the documentation you need the following Python libraries:
+To build the documentation you need the following software:
 
 ===========================  ========
 Name                         Version
@@ -74,35 +65,48 @@ Beam_ theme                  N/A
 ===========================  ========
 
 
-Setup
------
+Installation
+------------
 
-#. Grab the source::
+#. AcidSWF uses Git_ for source control. Grab the source (`browse online`_)::
 
     git clone http://github.com/thijstriemstra/acidswf
 
-#. Set the ``FLEX_HOME`` environment variable and point it to the root of your Flex SDK. For Unix::
-
+#. Make sure the following environment variables are set:
+  
+  ==================  ====================================
+  Name                Description
+  ==================  ====================================
+  ``FLEX_HOME``       Path to `Flex SDK`_ folder
+  ``ANT_HOME``        Installation folder for Ant_
+  ``JAVA_HOME``       Installation folder for Java_
+  ==================  ====================================
+  
+  For example, on a Unix machine you would set the ``FLEX_HOME`` variable by
+  entering the following on the command-line::
+  
     export FLEX_HOME="/Applications/Adobe Flex Builder 3 Plug-in/sdks/4.1.0"
 
-#. Create a new folder in ``/path/to/acidswf/flash/lib`` and then copy the files for
-   the following libraries into that folder:
+3. Create a new folder in ``/path/to/acidswf/flash/lib`` and then copy the following
+   files in that folder:
 
   - `Hamcrest AS3`_ 
-   - ``hamcrest-{VERSION}.swc``
+   - ``hamcrest.swc``
   - FlexUnit_
-   - ``flexunit-cilistener-{VERSION}.swc``
-   - ``flexunit-core-as3-{VERSION}.swc``
-   - ``flexunit-uilistener-{VERSION}.swc``
-   - ``flexUnitTasks-{VERSION}.jar``
+   - ``flexunit-cilistener.swc``
+   - ``flexunit-core-as3.swc``
+   - ``flexunit-uilistener.swc``
+   - ``flexUnitTasks.jar``
 
 
 Running AcidSWF
 ---------------
 
-- Run Ant from the root of your AcidSWF source directory::
+Run Ant from the root of your AcidSWF source directory::
 
     ant
+
+
 
 
 
