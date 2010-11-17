@@ -6,7 +6,7 @@ protocols used primarily by the Adobe `Flash Player`_.
 
 It was developed using Python_ to test the PyAMF_ and RTMPy_ libraries, but 
 the goal is to make it work for any AMF/RTMP implementation (Red5_, BlazeDS_, FMS_
-etc) that is compliant with the Flash Player.
+etc.) that is compliant with the Flash Player.
 
 The package consists of an Ant_ build script that controls:
 

@@ -4,6 +4,7 @@
 	
     <property name="bin" value="flash/bin"/>
     <property name="assets" value="flash/assets"/>
+    <property name="doc" value="docs"/>
     <property name="config.report" value="env-config-report.txt"/>
     
 	<target name="config">
@@ -53,5 +54,11 @@
             </sequential>
         </parallel>
 	</target>
+
+        <target name="docs" depends="config">
+                <exec executable="make" spawn="false" dir="${doc}">
+                    <arg value="html"/>
+                </exec>
+      	</target>
 
 </project> 
