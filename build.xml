@@ -55,9 +55,15 @@
         </parallel>
 	</target>
 
-        <target name="docs" depends="config">
+        <target name="docs">
                 <exec executable="make" spawn="false" dir="${doc}">
                     <arg value="html"/>
+                </exec>
+      	</target>
+
+        <target name="docs-clean">
+                <exec executable="make" spawn="false" dir="${doc}">
+                    <arg value="clean"/>
                 </exec>
       	</target>
 
