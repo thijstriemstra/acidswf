@@ -12,7 +12,7 @@ The package consists of an Ant_ build script that controls:
 
 - AMF/RTMP server
 - FlexUnit test suite
-- Flash Player
+- Adobe Flash Player
 
 The build script performs the following tasks:
 
@@ -74,21 +74,25 @@ Installation
 
 #. Make sure the following environment variables are set:
   
-  ==================  ====================================
-  Name                Description
-  ==================  ====================================
-  ``FLEX_HOME``       Path to `Flex SDK`_ folder
-  ``ANT_HOME``        Installation folder for Ant_
-  ``JAVA_HOME``       Installation folder for Java_
-  ==================  ====================================
+  =========================  ====================================
+  Name                       Description
+  =========================  ====================================
+  :envvar:`FLEX_HOME`        Path to `Flex SDK`_ folder
+  :envvar:`ANT_HOME`         Installation folder for Ant_
+  :envvar:`JAVA_HOME`        Installation folder for Java_
+  =========================  ====================================
   
-  For example, on a Unix machine you would set the ``FLEX_HOME`` variable by
+  For example, on a Unix machine you would set the :envvar:`FLEX_HOME` variable by
   entering the following on the command-line::
   
     export FLEX_HOME="/Applications/Adobe Flex Builder 3 Plug-in/sdks/4.1.0"
 
-3. Create a new folder in ``/path/to/acidswf/flash/lib`` and then copy the following
-   files in that folder:
+  On Windows::
+
+    set FLEX_HOME="C:\Program Files\Adobe\Adobe Flex Builder 3 Plug-in\sdks\4.1.0"
+ 
+3. Create a new folder in :file:`/path/to/acidswf/flash/lib` and then copy the
+   following files in that folder:
 
   - `Hamcrest AS3`_ 
    - ``hamcrest.swc``
@@ -98,6 +102,14 @@ Installation
    - ``flexunit-uilistener.swc``
    - ``flexUnitTasks.jar``
 
+4. Create a new file in :file:`build.properties` by making a copy of the
+   template at :file:`/path/to/acidswf/build.properties.template`::
+
+     cd acidswf
+     cp build.properties.template build.properties
+
+   In this file you adjust the host/port settings for the RTMP and AMF servers.
+
 
 Running AcidSWF
 ---------------
@@ -106,8 +118,14 @@ Run Ant from the root of your AcidSWF source directory::
 
     ant
 
+This will print the script's progress on stdout. Below is a description of the various
+tasks. Check :download:`this<content/output-full.txt>` to see an example of the
+full output.
 
+It starts with the ``config`` task that shows which servers will be started:
 
+.. literalinclude:: content/output-full.txt
+    :lines: 1-19
 
 
 .. _AMF:	http://en.wikipedia.org/wiki/AMF
