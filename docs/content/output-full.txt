@@ -1,0 +1,229 @@
+Buildfile: /Users/thijstriemstra/Sites/acidswf/build.xml
+
+config:
+     [copy] Copying 1 file to /Users/thijstriemstra/Sites/acidswf/flash/bin
+     [echo] 
+     [echo] AcidSWF 1.0
+     [echo] ========================================================
+     [echo] 
+     [echo] AMF
+     [echo] --------------------------------------------------------
+     [echo] 
+     [echo]     Gateway:        http://localhost:8000
+     [echo]     Service:        acidswf
+     [echo] 
+     [echo] RTMP
+     [echo] --------------------------------------------------------
+     [echo] 
+     [echo]     Server:         rtmp://localhost:1935
+     [echo]     Application:    oflaDemo
+     [echo] 
+
+all:
+
+environment:
+     [echo] Apache Ant version 1.8.1 compiled on April 30 2010
+     [echo] Java 1.5
+     [echo] Flex 4.1.0.16076
+
+clean:
+   [delete] Deleting directory /Users/thijstriemstra/Sites/acidswf/flash/bin
+
+init:
+    [mkdir] Created dir: /Users/thijstriemstra/Sites/acidswf/flash/bin
+    [mkdir] Created dir: /Users/thijstriemstra/Sites/acidswf/flash/bin/report
+    [mkdir] Created dir: /Users/thijstriemstra/Sites/acidswf/flash/bin/dist
+     [copy] Copying 1 file to /Users/thijstriemstra/Sites/acidswf/flash/src/com/collab/acidswf
+
+test:
+     [exec] 2010-11-20 11:17:14+0100 [-] Log opened.
+     [exec] 2010-11-20 11:17:14+0100 [-] twistd 10.1.0 (/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python 2.7.0) starting up.
+     [exec] 2010-11-20 11:17:14+0100 [-] reactor class: twisted.internet.selectreactor.SelectReactor.
+     [exec] 2010-11-20 11:17:14+0100 [-] twisted.plugins.acidswf.WebServer starting on 8000
+     [exec] 2010-11-20 11:17:14+0100 [-] Starting factory <twisted.plugins.acidswf.WebServer instance at 0x11f70a8>
+     [exec] 2010-11-20 11:17:14+0100 [-] twisted.plugins.acidswf.RTMPServer starting on 1935
+     [exec] 2010-11-20 11:17:14+0100 [-] Starting factory <twisted.plugins.acidswf.RTMPServer instance at 0x137e6c0>
+     [exec] 2010-11-20 11:17:14+0100 [-] PyAMF 0.6
+     [exec] 2010-11-20 11:17:14+0100 [-] RTMPy 0.1.1
+     [exec] 2010-11-20 11:17:14+0100 [-] AcidSWF service completed startup.
+    [mxmlc] Laden van configuratiebestand /Applications/Adobe Flex Builder 2 Plug-in/sdks/4.1.0/frameworks/flex-config.xml
+    [mxmlc] /Users/thijstriemstra/Sites/acidswf/flash/bin/TestRunner.swf (163769 bytes)
+ [flexunit] Validating task attributes ...
+ [flexunit] Generating default values ...
+ [flexunit] Using the following settings for the test run:
+ [flexunit]     FLEX_HOME: [/Applications/Adobe Flex Builder 2 Plug-in/sdks/4.1.0]
+ [flexunit]     haltonfailure: [false]
+ [flexunit]     headless: [false]
+ [flexunit]     display: [99]
+ [flexunit]     localTrusted: [true]
+ [flexunit]     player: [flash]
+ [flexunit]     port: [1024]
+ [flexunit]     swf: [/Users/thijstriemstra/Sites/acidswf/flash/bin/TestRunner.swf]
+ [flexunit]     timeout: [60000ms]
+ [flexunit]     toDir: [/Users/thijstriemstra/Sites/acidswf/flash/bin/report]
+ [flexunit] Setting up server process ...
+ [flexunit] Starting server ...
+ [flexunit] Opening server socket on port [1024].
+ [flexunit] Waiting for client connection ...
+ [flexunit] Entry [/Users/thijstriemstra/Sites/acidswf/flash/bin] already available in local trust file at [/Users/thijstriemstra/Library/Preferences/Macromedia/Flash Player/#Security/FlashPlayerTrust/flexUnit.cfg].
+ [flexunit] Executing 'open' with arguments:
+ [flexunit] '/Users/thijstriemstra/Sites/acidswf/flash/bin/TestRunner.swf'
+ [flexunit] 
+ [flexunit] The ' characters around the executable and arguments are
+ [flexunit] not part of the command.
+ [flexunit] 
+ [flexunit] Client connected.
+ [flexunit] Setting inbound buffer size to [262144] bytes.
+ [flexunit] Receiving data ...
+ [flexunit] Sending acknowledgement to player to start sending test data ...
+ [flexunit] 
+     [exec] 2010-11-20 11:17:34+0000 [root] <class 'cElementTree.ParseError'>: not well-formed (invalid token): line 1, column 1
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 422 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 67 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 213 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0000 [root] Traceback (most recent call last):
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 503, in __bootstrap
+     [exec]     self.__bootstrap_inner()
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 530, in __bootstrap_inner
+     [exec]     self.run()
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 483, in run
+     [exec]     self.__target(*self.__args, **self.__kwargs)
+     [exec] --- <exception cau2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 400 72 "-" "Adobe Flash Player 10"
+     [exec] ght here> ---
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/Twisted-10.1.0-py2.7-macosx-10.3-fat.egg/twisted/python/threadpool.py", line 207, in _worker
+     [exec]     result = context.call(ctx, function, *args, **kwargs)
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/Twisted-10.1.0-py2.7-macosx-10.3-fat.egg/twisted/python/context.py", line 59, in callWithContext
+     [exec]     return self.currentContext().callWithContext(ctx, func, *args, **kw)
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/Twisted-10.1.0-py2.7-macosx-10.3-fat.egg/twisted/python/context.py", line 37, in callWithContext
+     [exec]     return func(*args,**kw)
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/remoting/__init__.py", line 626, in decode
+     [exec]     target, payload = _read_body(stream, decoder, strict, logger)
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/remoting/__init__.py", line 457, in _read_body
+     [exec]     data = _read_args()
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/remoting/__init__.py", line 434, in _read_args
+     [exec]     return [decoder.readElement() for i in xrange(x)]
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/codec.py", line 338, in readElement
+     [exec]     return func()
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/amf0.py", line 291, in readAMF3
+     [exec]     return self.context.getAMF3Decoder(self).readElement()
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/codec.py", line 338, in readElement
+     [exec]     return func()
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/amf3.py", line 1060, in readXML
+     [exec]     x = xml.fromstring(xmlstring)
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/xml.py", line 165, in fromstring
+     [exec]     return ET.fromstring(*args, **kwargs)
+     [exec]   File "<string>", line 106, in XML
+     [exec]     
+     [exec] cElementTree.ParseError: not well-formed (invalid token): line 1, column 1
+     [exec] 
+     [exec] 2010-11-20 11:17:34+0000 [root] <class 'cElementTree.ParseError'>: no element found: line 1, column 0
+     [exec] 2010-11-20 11:17:34+0000 [root] Traceback (most recent call last):
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 503, in __bootstrap
+     [exec]     self.__bootstrap_inner()
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 530, in __bootstrap_inner
+     [exec]     self.run()
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 483, in run
+     [exec]     self.__target(*self.__args, **self.__kwargs)
+     [exec] --- <exception caught here> ---
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/Twisted-10.1.0-py2.7-macosx-10.3-fat.egg/twisted/python/threadpool.py", line 207, in _worker
+     [exec]     result = context.call(ctx, function, *args, **kwargs)
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/Twisted-10.1.0-py2.7-macosx-10.3-fat.egg/twisted/python/context.py", line 59, in callWithContext
+     [exec]     return self.currentContext().callWithContext(ctx, func, *args, **kw)
+     [exec]   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/Twisted-10.1.0-py2.7-macosx-10.3-fat.egg/twisted/python/context.py", line 37, in callWithContext
+     [exec]     return func(*args,**kw)
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/remoting/__init__.py", line 626, in decode
+     [exec]     target, payload = _read_body(stream, decoder, strict, logger)
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/remoting/__init__.py", line 457, in _read_body
+     [exec]     data = _read_args()
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/remoting/__init__.py", line 434, in _read_args
+     [exec]     return [decoder.readElement() for i in xrange(x)]
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/codec.py", line 338, in readElement
+     [exec]     return func()
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/amf0.py", line 291, in readAMF3
+     [exec]     return self.context.getAMF3Decoder(self).readElement()
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/codec.py", line 338, in readElement
+     [exec]     return func()
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/amf3.py", line 1072, in readXMLString
+     [exec]     return self.readXML()
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/amf3.py", line 1060, in readXML
+     [exec]     x = xml.fromstring(xmlstring)
+     [exec]   File "/Users/thijstriemstra/Sites/pyamf/pyamf/xml.py", line 165, in fromstring
+     [exec]     return ET.fromstring(*args, **kwargs)
+     [exec]   File "<string>", line 107, in XML
+     [exec]     
+     [exec] cElementTree.ParseError: no element found: line 1, column 0
+     [exec] 
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 400 72 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 349 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 155 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 216 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 63 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 56 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 244 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 79 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 123 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 31 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 31 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 476 "-" "Adobe Flash Player 10"
+     [exec] 2010-11-20 11:17:34+0100 [-] 127.0.0.1 - - [20/Nov/2010:10:17:34 +0000] "POST / HTTP/1.1" 200 1110235 "-" "Adobe Flash Player 10"
+ [flexunit] FlexUnit test mixedArrayCollection in suite com.collab.acidswf.ArrayCollectionTest was ignored.
+ [flexunit] FlexUnit test simple in suite com.collab.acidswf.ObjectTest was ignored.
+ [flexunit] FlexUnit test arrayOfObjects in suite com.collab.acidswf.ObjectTest was ignored.
+ [flexunit] FlexUnit test simple in suite com.collab.acidswf.RemoteClassTest was ignored.
+ [flexunit] FlexUnit test array in suite com.collab.acidswf.RemoteClassTest was ignored.
+ [flexunit] FlexUnit test complex in suite com.collab.acidswf.RemoteClassTest was ignored.
+ [flexunit] FlexUnit test initializationError in suite com.collab.acidswf.XMLDocumentTest had errors.
+ [flexunit] FlexUnit test initializationError in suite com.collab.acidswf.XMLTest had errors.
+ [flexunit] 
+ [flexunit] Stopping server ...
+ [flexunit] End of test data reached, sending acknowledgement to player ...
+ [flexunit] Closing client connection ...
+ [flexunit] Closing server on port [1024] ...
+ [flexunit] Analyzing reports ...
+ [flexunit] 
+ [flexunit] Suite: com.collab.acidswf.ArrayCollectionTest
+ [flexunit] Tests run: 2, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0,003 sec
+ [flexunit] Suite: com.collab.acidswf.ByteArrayTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,001 sec
+ [flexunit] Suite: com.collab.acidswf.CustomClassTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,001 sec
+ [flexunit] Suite: com.collab.acidswf.NullTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,001 sec
+ [flexunit] Suite: com.collab.acidswf.ObjectProxyTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,001 sec
+ [flexunit] Suite: com.collab.acidswf.StringTest
+ [flexunit] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,098 sec
+ [flexunit] Suite: com.collab.acidswf.DateTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,002 sec
+ [flexunit] Suite: com.collab.acidswf.BooleanTest
+ [flexunit] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,002 sec
+ [flexunit] Suite: com.collab.acidswf.XMLDocumentTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0,001 sec
+ [flexunit] Suite: com.collab.acidswf.RemoteClassTest
+ [flexunit] Tests run: 4, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0,034 sec
+ [flexunit] Suite: com.collab.acidswf.UnsupportedTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,001 sec
+ [flexunit] Suite: com.collab.acidswf.ArrayTest
+ [flexunit] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,015 sec
+ [flexunit] Suite: com.collab.acidswf.UndefinedTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,018 sec
+ [flexunit] Suite: com.collab.acidswf.ExternalizableTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,001 sec
+ [flexunit] Suite: com.collab.acidswf.XMLTest
+ [flexunit] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0,001 sec
+ [flexunit] Suite: com.collab.acidswf.NumberTest
+ [flexunit] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,043 sec
+ [flexunit] Suite: com.collab.acidswf.ObjectTest
+ [flexunit] Tests run: 3, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 0,003 sec
+ [flexunit] 
+ [flexunit] Results :
+ [flexunit] 
+ [flexunit] Tests run: 40, Failures: 0, Errors: 2, Skipped: 6, Time elapsed: 0,226 sec
+ [flexunit] 
+[junitreport] Processing /Users/thijstriemstra/Sites/acidswf/flash/bin/report/TESTS-TestSuites.xml to /tmp/null157658086
+[junitreport] Loading stylesheet jar:file:/usr/local/apache-ant-1.8.1/lib/ant-junit.jar!/org/apache/tools/ant/taskdefs/optional/junit/xsl/junit-frames.xsl
+[junitreport] Transform time: 1324ms
+[junitreport] Deleting: /tmp/null157658086
+
+BUILD SUCCESSFUL
+Total time: 30 seconds
