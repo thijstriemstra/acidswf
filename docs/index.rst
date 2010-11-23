@@ -95,12 +95,12 @@ Installation
    following files in that folder:
 
   - `Hamcrest AS3`_ 
-   - ``hamcrest.swc``
+   - :file:`hamcrest.swc`
   - FlexUnit_
-   - ``flexunit-cilistener.swc``
-   - ``flexunit-core-as3.swc``
-   - ``flexunit-uilistener.swc``
-   - ``flexUnitTasks.jar``
+   - :file:`flexunit-cilistener.swc`
+   - :file:`flexunit-core-as3.swc`
+   - :file:`flexunit-uilistener.swc`
+   - :file:`flexUnitTasks.jar`
 
 4. Create a new file in :file:`build.properties` by making a copy of the
    template at :file:`/path/to/acidswf/build.properties.template`::
