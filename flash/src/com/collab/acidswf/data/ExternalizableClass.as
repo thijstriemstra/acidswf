@@ -6,7 +6,7 @@ package com.collab.acidswf.data
 	import flash.utils.IExternalizable;
 	
 	[RemoteClass(alias="com.collab.acidswf.ExternalizableClass")]
-	/**	 * Test class implementing IExternalizable.	 * 	 * @language 3.0	 * @playerversion 9.0	 * @since 1.0 	 */
+	/**	 * Test class implementing IExternalizable.	 * 	 * @language 3.0	 * @playerversion Flash 9.0	 * @since 1.0 	 */
 	public class ExternalizableClass implements IExternalizable 
 	{
 		public var valid	: Number;
@@ -53,9 +53,9 @@ package com.collab.acidswf.data
 		
 		private function checkEqual( a: Object, b: Object ) : void 
 		{
-			if ( a == b ) {
+			if ( a == b )			{
 				valid += 1;
-			} else {
+			}			else			{
 				failed += 1;
 			}
 		}
@@ -78,17 +78,17 @@ package com.collab.acidswf.data
 			checkEqual(input.readMultiByte(7, "iso-8859-1"), "\xe4\xf6\xfc\xc4\xd6\xdc\xdf");
 			checkEqual(input.readMultiByte(14, "utf-8"), "\xe4\xf6\xfc\xc4\xd6\xdc\xdf");
 			var ob: Object = input.readObject();
-			if (ob is Array) {
-				if (ob.length == 3) {
-					if (ob[0] == 1 && ob[1] == "one" && ob[2] == 1.0) {
+			if (ob is Array)			{
+				if (ob.length == 3)				{
+					if (ob[0] == 1 && ob[1] == "one" && ob[2] == 1.0)					{
 						valid += 1;
-					} else {
+					}					else					{
 						failed += 1;
 					}
-				} else {
+				}				else				{
 					failed += 1;
 				}
-			} else {
+			}			else			{
 				failed += 1;
 			}
 			checkEqual(input.readShort(), 0);

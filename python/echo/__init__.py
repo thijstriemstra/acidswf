@@ -7,7 +7,7 @@
 Echo test core functionality. This module sets up the class
 mappings related to the echo_test clients.
 
-@since: 0.1
+@since: 1.0
 """
 
 from pyamf import register_class

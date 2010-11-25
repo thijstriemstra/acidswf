@@ -96,7 +96,7 @@ package com.collab.acidswf.loader
 		 * Make a call to the remote server.
 		 * 
 		 * @param data List of payloads. Each individual payload will be passed
-		 *             as a paremeter to the service.
+		 *             as a parameter to the service.
 		 */		
 		public function load( data:* ):void
 		{
