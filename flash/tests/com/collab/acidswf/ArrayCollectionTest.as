@@ -8,8 +8,6 @@ package com.collab.acidswf
 	import org.flexunit.runners.Parameterized;
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.arrayWithSize;
-	import org.hamcrest.collection.everyItem;
-	import org.hamcrest.core.isA;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.instanceOf;
 	import org.hamcrest.object.nullValue;
