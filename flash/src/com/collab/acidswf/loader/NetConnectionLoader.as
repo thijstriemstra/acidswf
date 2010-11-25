@@ -15,11 +15,15 @@ package com.collab.acidswf.loader
 	 * Custom FlexUnit dependency loader for AcidSWF.
 	 * 
 	 * @language 3.0
-	 * @playerversion 9.0
+	 * @playerversion Flash 9.0
 	 * @since 1.0 
 	 */	
 	public class NetConnectionLoader implements IExternalDependencyLoader
 	{
+		// ====================================================================
+		//     PRIVATE VARS
+		// ====================================================================
+		
 		private var service				: String;
 		private var hostURL				: String;
 		private var connection			: NetConnection;
@@ -55,6 +59,7 @@ package com.collab.acidswf.loader
 			token = new ExternalDependencyToken();
  			responder = new Responder(resultHandler, faultHandler);
 			connection = new NetConnection();
+			// XXX: need to test all available encodings
 			connection.objectEncoding = ObjectEncoding.AMF3;
 			
 			connection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
@@ -70,7 +75,13 @@ package com.collab.acidswf.loader
             }
 		}
 		
+		// ====================================================================
+		//     PUBLIC METHODS
+		// ====================================================================
+		
 		/**
+		 * Retrieves a test class and starts loading the service.
+		 * 
 		 * @param testClass
 		 * @return 
 		 */		
@@ -82,7 +93,10 @@ package com.collab.acidswf.loader
 		}
 		
 		/**
-		 * @param data
+		 * Make a call to the remote server.
+		 * 
+		 * @param data List of payloads. Each individual payload will be passed
+		 *             as a paremeter to the service.
 		 */		
 		public function load( data:* ):void
 		{
@@ -95,7 +109,13 @@ package com.collab.acidswf.loader
 			}
 		}
 		
+		// ====================================================================
+		//     EVENT HANDLERS
+		// ====================================================================
+		
 		/**
+		 * Handles security events.
+		 * 
 		 * @param event
 		 */		
 		protected function securityError(event:SecurityErrorEvent):void
@@ -104,6 +124,8 @@ package com.collab.acidswf.loader
 		}
  
 		/**
+		 * Handles NetStatus events.
+		 * 
 		 * @param event
 		 */ 
 		protected function netStatusHandler(event:NetStatusEvent):void
@@ -121,7 +143,13 @@ package com.collab.acidswf.loader
             }
 		}
 		
+		// ====================================================================
+		//     RESULT HANDLERS
+		// ====================================================================
+		
 		/**
+		 * Invoked when a successful result is returned from the server.
+		 * 
 		 * @param result
 		 */		
 		protected function resultHandler(result:*):void
@@ -135,6 +163,8 @@ package com.collab.acidswf.loader
 		}
 		
 		/**
+		 * Invoked when an error occured on the server.
+		 * 
 		 * @param error
 		 */		
 		protected function faultHandler(error:Object):void
