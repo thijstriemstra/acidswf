@@ -126,7 +126,7 @@ class AcidSWFServiceMaker(object):
         
         # rtmp
         app = LiveApplication()
-        factory = RTMPServer( {'oflaDemo': app, 'echo': app})
+        factory = RTMPServer( {options['rtmp-app']: app})
         rtmp_service = internet.TCPServer(int(options['rtmp-port']), factory,
                                          interface=options['rtmp-host'])
         rtmp_service.setServiceParent(top_service)
