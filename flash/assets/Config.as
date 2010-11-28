@@ -20,6 +20,7 @@ package com.collab.acidswf
         public static const RTMP_PORT		: int = @rtmpPort@;
         public static const RTMP_APP		: String = "@rtmpApp@";
         public static const RTMP_PROTOCOL 	: String = "@rtmpProtocol@";
+        public static const RTMP_SERVICE	: String = "echo";
 		
 		/**
 		 * @return 
@@ -48,7 +49,7 @@ package com.collab.acidswf
 		/**
 		 * @return 
 		 */		
-		public static function getRTMPHostURL():String
+		public static function getRTMPAppURL():String
 		{
 			return RTMP_PROTOCOL + "://" + RTMP_HOST.toString() +
 			       ":" + RTMP_PORT.toString() + "/" + RTMP_APP;
@@ -57,9 +58,9 @@ package com.collab.acidswf
 		/**
 		 * @return 
 		 */		
-		public static function getRTMPApplication():String
+		public static function getRTMPService():String
 		{
-			return RTMP_APP;
+			return RTMP_SERVICE;
 		}
 
 	}
