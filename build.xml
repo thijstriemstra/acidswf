@@ -35,9 +35,10 @@
 	</target>
 		
 	<target name="all" depends="config">
+		<delete file="server-log.txt"/>
         <parallel>
             <daemons>
-                <exec executable="twistd" spawn="false" dir="python">
+                <exec executable="twistd" spawn="false" dir="python" output="server-log.txt">
                     <arg value="--nodaemon"/>
                     <arg value="acidswf"/>
                     <arg value="--amf-host=${amf.host}"/>
