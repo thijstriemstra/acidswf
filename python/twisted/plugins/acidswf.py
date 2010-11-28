@@ -20,7 +20,7 @@ from twisted.application import internet, service
 from rtmpy import __version__
 from rtmpy.server import ServerFactory, Application
 
-from pyamf import version
+from pyamf import version, AMF3
 from pyamf.remoting.gateway.twisted import TwistedGateway
 
 import echo
@@ -94,6 +94,7 @@ class Options(usage.Options):
         ['rtmp-port', None, 1935, 'The port number for the RTMP server to listen on.'],
         ['rtmp-host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
         ['rtmp-app', None, 'acidswf', 'The RTMP application name.'],
+        ['object-encoding', None, AMF3, 'The AMF object encoding.'],
         ['crossdomain', None, 'crossdomain.xml', 'Path to a crossdomain.xml file.'],
     ]
 

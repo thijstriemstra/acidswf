@@ -2,6 +2,8 @@
 // See LICENSE.txt for details.
 package com.collab.acidswf
 {
+	import flash.net.ObjectEncoding;
+	
 	/**
 	 * Configuration data.
 	 * 
@@ -21,6 +23,9 @@ package com.collab.acidswf
         public static const RTMP_APP		: String = "@rtmpApp@";
         public static const RTMP_PROTOCOL 	: String = "@rtmpProtocol@";
         public static const RTMP_SERVICE	: String = "echo";
+        
+        public static const MODE			: String = "@mode@";
+        public static const OBJECT_ENCODING	: uint = @objectEncoding@;
 		
 		/**
 		 * @return 

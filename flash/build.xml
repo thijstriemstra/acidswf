@@ -72,6 +72,8 @@
 		    token="@rtmpPort@" value="${rtmp.port}"/>
 		  <replacefilter 
 		    token="@rtmpApp@" value="${rtmp.app}"/>
+		  <replacefilter 
+		     token="@objectEncoding@" value="${objectEncoding}"/>
 		</replace>
 	</target>
 

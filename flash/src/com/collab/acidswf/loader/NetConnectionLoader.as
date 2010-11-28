@@ -5,7 +5,6 @@ package com.collab.acidswf.loader
 	import flash.events.NetStatusEvent;
 	import flash.events.SecurityErrorEvent;
 	import flash.net.NetConnection;
-	import flash.net.ObjectEncoding;
 	import flash.net.Responder;
 	
 	import org.flexunit.runner.external.ExternalDependencyToken;
@@ -29,6 +28,7 @@ package com.collab.acidswf.loader
 		private var connection			: NetConnection;
 		private var responder			: Responder;
 		private var token				: ExternalDependencyToken;
+		private var encoding			: uint;
 		private var testData			: Array;
 		private var calls				: Array;
 		
@@ -38,13 +38,15 @@ package com.collab.acidswf.loader
 		 * @param url
 		 * @param service
 		 * @param data
+		 * @param encoding
 		 */		
 		public function NetConnectionLoader( url:String, service:String,
-											 data:Array )
+											 data:Array, encoding:uint )
 		{
 			this.hostURL = url;
 			this.service = service;
 			this.testData = data;
+			this.encoding = encoding;
 			
 			connect();
 		}
@@ -58,10 +60,9 @@ package com.collab.acidswf.loader
 			
 			token = new ExternalDependencyToken();
  			responder = new Responder(resultHandler, faultHandler);
-			connection = new NetConnection();
-			// XXX: need to test all available encodings
-			connection.objectEncoding = ObjectEncoding.AMF3;
 			
+			connection = new NetConnection();
+			connection.objectEncoding = encoding;
 			connection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
             connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityError);
             
@@ -71,7 +72,7 @@ package com.collab.acidswf.loader
             }
             catch (e:Error)
             {
-            	// XXX: do something meaningful
+            	// XXX: report something meaningful
             }
 		}
 		
