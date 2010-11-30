@@ -31,13 +31,26 @@ class LiveApplication(Application):
     Live app.
     """
 
+    def onAppStart(self):
+        print 'Started ' + repr(self)
+
+
+    def acceptConnection(self, client):
+        print "Accepted connection from: " + repr(client)
+
+
+    def onDisconnect(self, client):
+        print 'a client has been disconnected from the application: ' + repr(client)
+
+
     def echo(self, data):
+        print 'echo: ' + data
         return data
         
 
 class WebServer(server.Site):
     """
-    Webserver with a AMF gateway and crossdomain.xml.
+    Webserver serving an AMF gateway and crossdomain.xml file.
     """
     
     def __init__(self, services, logLevel=logging.ERROR,
