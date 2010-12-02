@@ -52,13 +52,20 @@
 		<!-- AMF -->
 		<test host="${amf.protocol}://${amf.host}"
 			  port="${amf.port}" service="${amf.service}"
-			  url="${amf.url}"/>
+			  url="${amf.url}" encoding="0"/>
+		
+		<test host="${amf.protocol}://${amf.host}"
+			  port="${amf.port}" service="${amf.service}"
+			  url="${amf.url}" encoding="3"/>
 		
 		<!-- RTMP -->
 		<test host="${rtmp.protocol}://${rtmp.host}"
 			  port="${rtmp.port}" service="echo"
-			  url="${rtmp.url}"/>
+			  url="${rtmp.url}" encoding="0"/>
 		
+		<test host="${rtmp.protocol}://${rtmp.host}"
+			  port="${rtmp.port}" service="echo"
+			  url="${rtmp.url}" encoding="3"/>
 	</target>
 
     <macrodef name="test">
@@ -66,6 +73,7 @@
     	<attribute name="port"/>
     	<attribute name="service"/>
     	<attribute name="url"/>
+    	<attribute name="encoding" default="0"/>
 	    <sequential>
 	    	<copy file="assets/Config.as"
 	              todir="${main.src.loc}/com/collab/acidswf" overwrite="true"
@@ -86,7 +94,7 @@
 			  <replacefilter 
 			    token="@service@" value="@{service}"/>
 			  <replacefilter 
-				token="@objectEncoding@" value="ObjectEncoding.AMF3"/>
+				token="@objectEncoding@" value="@{encoding}"/>
 			</replace>
 	    	
 	    	<!-- Compile TestRunner.mxml as a SWF -->
@@ -98,6 +106,7 @@
 				</library-path>
 				<compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
 				<compiler.headless-server>true</compiler.headless-server>
+				<define name="CONFIG::objectEncoding" value="@{encoding}"/>
 			</mxmlc>
 			
 			<!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->

@@ -2,8 +2,6 @@
 // See LICENSE.txt for details.
 package com.collab.acidswf
 {
-	import flash.net.ObjectEncoding;
-	
 	/**
 	 * Configuration data.
 	 * 

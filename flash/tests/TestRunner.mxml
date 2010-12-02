@@ -11,28 +11,42 @@ creationComplete="runTests();">
          import org.flexunit.runner.Request;
          import org.flexunit.internals.TraceListener;
          
-import com.collab.acidswf.ArrayCollectionTest;
-import com.collab.acidswf.ArrayTest;
-import com.collab.acidswf.BooleanTest;
-import com.collab.acidswf.ByteArrayTest;
-import com.collab.acidswf.CustomClassTest;
-import com.collab.acidswf.DateTest;
-import com.collab.acidswf.ExternalizableTest;
-import com.collab.acidswf.NullTest;
-import com.collab.acidswf.NumberTest;
-import com.collab.acidswf.ObjectProxyTest;
-import com.collab.acidswf.ObjectTest;
-import com.collab.acidswf.RemoteClassTest;
-import com.collab.acidswf.StringTest;
-import com.collab.acidswf.UndefinedTest;
-import com.collab.acidswf.UnsupportedTest;
-import com.collab.acidswf.XMLDocumentTest;
-import com.collab.acidswf.XMLTest;
+		 import com.collab.acidswf.ArrayCollectionTest;
+		 import com.collab.acidswf.ArrayTest;
+		 import com.collab.acidswf.BooleanTest;
+		 import com.collab.acidswf.ByteArrayTest;
+		 import com.collab.acidswf.CustomClassTest;
+		 import com.collab.acidswf.DateTest;
+		 import com.collab.acidswf.ExternalizableTest;
+		 import com.collab.acidswf.NullTest;
+		 import com.collab.acidswf.NumberTest;
+		 import com.collab.acidswf.ObjectProxyTest;
+		 import com.collab.acidswf.ObjectTest;
+		 import com.collab.acidswf.RemoteClassTest;
+		 import com.collab.acidswf.StringTest;
+		 import com.collab.acidswf.UndefinedTest;
+		 import com.collab.acidswf.UnsupportedTest;
+		 import com.collab.acidswf.XMLDocumentTest;
+		 import com.collab.acidswf.XMLTest;
 
+         private var objectEncoding:int = CONFIG::objectEncoding;
          
-         public function runTests() : void {
-            var tests:Array = [ArrayCollectionTest,ArrayTest,BooleanTest,ByteArrayTest,CustomClassTest,DateTest,ExternalizableTest,NullTest,NumberTest,ObjectProxyTest,ObjectTest,RemoteClassTest,StringTest,UndefinedTest,UnsupportedTest,XMLDocumentTest,XMLTest];
+         public function runTests() : void
+         {
+            var tests:Array = [];
+            var amf0_tests:Array = [ArrayTest,BooleanTest,CustomClassTest,DateTest,NullTest,NumberTest,ObjectTest,StringTest,UndefinedTest];
+            var amf3_tests:Array = [ByteArrayTest,ExternalizableTest,RemoteClassTest,UnsupportedTest,XMLDocumentTest,XMLTest];
+            var flex_tests:Array = [ArrayCollectionTest, ObjectProxyTest];
             
+            if ( objectEncoding == 0 )
+            {
+                tests = amf0_tests;
+            }
+            else
+            {
+                tests = amf0_tests.concat( amf3_tests, flex_tests );
+            }
+             
             var core : FlexUnitCore = new FlexUnitCore();
             core.addListener(new CIListener());
             core.addListener( new TraceListener() );
