@@ -4,7 +4,7 @@ version=1.0
 # AMF
 amf.host=localhost
 amf.port=8000
-amf.service= acidswf
+amf.service=acidswf
 amf.protocol=http
 amf.url=${amf.protocol}://${amf.host}:${amf.port}
 
@@ -12,5 +12,5 @@ amf.url=${amf.protocol}://${amf.host}:${amf.port}
 rtmp.host=${amf.host}
 rtmp.port=1935
 rtmp.protocol=rtmp
-rtmp.url=${rtmp.protocol}://${rtmp.host}:${rtmp.port}
-rtmp.app=oflaDemo
+rtmp.app=acidswf
+rtmp.url=${rtmp.protocol}://${rtmp.host}:${rtmp.port}/${rtmp.app}

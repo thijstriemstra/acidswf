@@ -15,19 +15,15 @@ package com.collab.acidswf
 	{
 		public static const NAME			: String = "@projectName@";
 		public static const VERSION			: String = "@projectVersion@";
-		public static const AMF_HOST		: String = "@amfHost@";
-		public static const AMF_SERVICE		: String = "@amfService@";
-		public static const AMF_PORT		: int = @amfPort@;
-        public static const RTMP_HOST		: String = "@rtmpHost@";
-        public static const RTMP_PORT		: int = @rtmpPort@;
-        public static const RTMP_APP		: String = "@rtmpApp@";
-        public static const RTMP_PROTOCOL 	: String = "@rtmpProtocol@";
-        public static const RTMP_SERVICE	: String = "echo";
-        
-        public static const MODE			: String = "@mode@";
-        public static const OBJECT_ENCODING	: uint = @objectEncoding@;
+		public static const HOST			: String = "@host@";
+		public static const URL				: String = "@url@";
+		public static const SERVICE			: String = "@service@";
+		public static const PORT			: int    = @port@;
+        public static const OBJECT_ENCODING	: uint   = @objectEncoding@;
 		
 		/**
+		 * Version, 'AcidSWF 1.0' for example.
+		 * 
 		 * @return 
 		 */		
 		public static function getVersion():String
@@ -36,37 +32,44 @@ package com.collab.acidswf
 		}
 		
 		/**
+		 * Host, 'rtmp://localhost' for example.
+		 * 
 		 * @return 
 		 */		
-		public static function getAMFHostURL():String
+		public static function getHost():String
 		{
-			return AMF_HOST + ":" + AMF_PORT.toString();
+			return HOST;
 		}
 		
 		/**
+		 * The port, 8000 or 1935 for example.
+		 * 
 		 * @return 
 		 */		
-		public static function getAMFService():String
+		public static function getPort():int
 		{
-			return AMF_SERVICE;
+			return PORT;
 		}
 		
 		/**
+		 * Full URL, 'rtmp://localhost:1935/acidswf' for example.
+		 * 
 		 * @return 
 		 */		
-		public static function getRTMPAppURL():String
+		public static function getURL():String
 		{
-			return RTMP_PROTOCOL + "://" + RTMP_HOST.toString() +
-			       ":" + RTMP_PORT.toString() + "/" + RTMP_APP;
+			return URL;
 		}
 		
 		/**
+		 * Service name.
+		 * 
 		 * @return 
 		 */		
-		public static function getRTMPService():String
+		public static function getService():String
 		{
-			return RTMP_SERVICE;
+			return SERVICE;
 		}
-
+		
 	}
 }

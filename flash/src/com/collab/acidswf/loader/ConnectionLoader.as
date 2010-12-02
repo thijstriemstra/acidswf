@@ -20,7 +20,7 @@ package com.collab.acidswf.loader
 		 */		
 		public function ConnectionLoader(data:Array)
 		{
-			super(Config.getAMFHostURL(), Config.getAMFService(), data, Config.OBJECT_ENCODING);
+			super(Config.getURL(), Config.getService(), data, Config.OBJECT_ENCODING);
 		}
 		
 	}

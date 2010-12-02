@@ -1,4 +1,4 @@
-<project name="acidswf-flash" basedir="." default="test">
+<project name="AcidSWF" basedir="." default="test">
 	<!-- setup a prefix for all environment variables -->
 	<property environment="env" />
 	
@@ -42,76 +42,88 @@
 		<echo>Flex ${flex.version}.${flex.build}</echo>
 	</target>
 		
-	<target name="init" depends="environment, clean">
+	<target name="test" depends="environment, clean">
 		<!-- Create directories needed for the build process -->
 		<mkdir dir="${output.loc}" />
 		<mkdir dir="${bin.loc}" />
 		<mkdir dir="${report.loc}" />
 		<mkdir dir="${dist.loc}" />
-        <copy file="assets/Config.as"
-              todir="${main.src.loc}/com/collab/acidswf" overwrite="true"
-              verbose="false"/>
-              
-		<replace 
-		    file="${main.src.loc}/com/collab/acidswf/Config.as">
-		  <replacefilter 
-		    token="@projectName@" value="${ant.project.name}"/>
-          <replacefilter 
-		    token="@projectVersion@" value="${version}"/>
-		  <replacefilter 
-		    token="@amfHost@" value="${amf.protocol}://${amf.host}"/>
-          <replacefilter 
-		    token="@amfPort@" value="${amf.port}"/>
-		  <replacefilter 
-		    token="@amfService@" value="${amf.service}"/>
-          <replacefilter 
-		    token="@rtmpHost@" value="${rtmp.host}"/>
-          <replacefilter 
-		    token="@rtmpProtocol@" value="${rtmp.protocol}"/>
-           <replacefilter 
-		    token="@rtmpPort@" value="${rtmp.port}"/>
-		  <replacefilter 
-		    token="@rtmpApp@" value="${rtmp.app}"/>
-		  <replacefilter 
-		     token="@objectEncoding@" value="${objectEncoding}"/>
-		</replace>
-	</target>
-
-	<target name="test" depends="init">
-		<!-- Compile TestRunner.mxml as a SWF -->
-		<mxmlc file="${test.src.loc}/TestRunner.mxml" output="${bin.loc}/TestRunner.swf"
-			   debug="true">
-			<source-path path-element="${main.src.loc}" />
-			<library-path dir="${lib.loc}" append="true">
-				<include name="*.swc" />
-			</library-path>
-			<compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
-			<compiler.headless-server>true</compiler.headless-server>
-		</mxmlc>
+        
+		<!-- AMF -->
+		<test host="${amf.protocol}://${amf.host}"
+			  port="${amf.port}" service="${amf.service}"
+			  url="${amf.url}"/>
 		
-		<!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->
-		<flexunit swf="${bin.loc}/TestRunner.swf" 
-		    workingDir="${bin.loc}"
-		    toDir="${report.loc}" 
-			haltonfailure="false" 
-			verbose="true" 
-			localTrusted="true"/>
-		<!--
-	      <source dir="${main.src.loc}" />
-	      <testSource dir="${test.src.loc}">
-	         <include name="**/*Test.as" />
-	      </testSource>
-	      <library dir="${lib.loc}" />
-	   </flexunit> -->
-
-		<!-- Generate readable JUnit-style reports -->
-		<junitreport todir="${report.loc}">
-			<fileset dir="${report.loc}">
-				<include name="TEST-*.xml" />
-			</fileset>
-			<report format="frames" todir="${report.loc}/html" />
-		</junitreport>
+		<!-- RTMP -->
+		<test host="${rtmp.protocol}://${rtmp.host}"
+			  port="${rtmp.port}" service="echo"
+			  url="${rtmp.url}"/>
+		
 	</target>
+
+    <macrodef name="test">
+	    <attribute name="host"/>
+    	<attribute name="port"/>
+    	<attribute name="service"/>
+    	<attribute name="url"/>
+	    <sequential>
+	    	<copy file="assets/Config.as"
+	              todir="${main.src.loc}/com/collab/acidswf" overwrite="true"
+	              verbose="true"/>
+	              
+			<replace 
+			    file="${main.src.loc}/com/collab/acidswf/Config.as">
+			  <replacefilter 
+			    token="@projectName@" value="${ant.project.name}"/>
+	          <replacefilter 
+			    token="@projectVersion@" value="${version}"/>
+			  <replacefilter 
+			    token="@host@" value="@{host}"/>
+	          <replacefilter 
+			    token="@port@" value="@{port}"/>
+			  <replacefilter 
+				token="@url@" value="@{url}"/>
+			  <replacefilter 
+			    token="@service@" value="@{service}"/>
+			  <replacefilter 
+				token="@objectEncoding@" value="ObjectEncoding.AMF3"/>
+			</replace>
+	    	
+	    	<!-- Compile TestRunner.mxml as a SWF -->
+			<mxmlc file="${test.src.loc}/TestRunner.mxml" output="${bin.loc}/TestRunner.swf"
+				   debug="true">
+				<source-path path-element="${main.src.loc}" />
+				<library-path dir="${lib.loc}" append="true">
+					<include name="*.swc" />
+				</library-path>
+				<compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
+				<compiler.headless-server>true</compiler.headless-server>
+			</mxmlc>
+			
+			<!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->
+			<flexunit swf="${bin.loc}/TestRunner.swf" 
+			    workingDir="${bin.loc}"
+			    toDir="${report.loc}" 
+				haltonfailure="false" 
+				verbose="true" 
+				localTrusted="true"/>
+			<!--
+		      <source dir="${main.src.loc}" />
+		      <testSource dir="${test.src.loc}">
+		         <include name="**/*Test.as" />
+		      </testSource>
+		      <library dir="${lib.loc}" />
+		   </flexunit> -->
+
+			<!-- Generate readable JUnit-style reports -->
+			<junitreport todir="${report.loc}">
+				<fileset dir="${report.loc}">
+					<include name="TEST-*.xml" />
+				</fileset>
+				<report format="frames" todir="${report.loc}/html" />
+			</junitreport>
+	    </sequential>
+    </macrodef>
 	
 	<target name="package" depends="test">
 		<!-- Zip up final website -->
@@ -119,4 +131,5 @@
 			<fileset dir="${dist.loc}" />
 		</zip>
 	</target>
+	
 </project>
