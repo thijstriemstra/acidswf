@@ -81,12 +81,32 @@ class AcidSWFService(service.Service):
     """
     AcidSWF service.
     """
-
+    
     def startService(self):
         service.Service.startService(self)
-        log.msg('PyAMF %s' % str(version))
-        log.msg('RTMPy %s' % '.'.join([str(x) for x in __version__]))
-        log.msg('AcidSWF service completed startup.')
+
+        log.msg('')
+        log.msg('AcidSWF 1.0')
+        log.msg(80 * '=')
+        log.msg('')
+        log.msg('AMF')
+        log.msg(80 * '-')
+        log.msg('')
+        log.msg('       Gateway:      %s:%s' % (self.options['amf-host'],
+                                              self.options['amf-port']))
+        log.msg('       Service:      %s' % self.options['amf-service'])
+        log.msg('       PyAMF:        %s' % str(version))
+        log.msg('')
+        log.msg('RTMP')
+        log.msg(80 * '-')
+        log.msg('')
+        log.msg('       Server:       %s://%s:%s' % (self.options['rtmp-protocol'],
+                                                  self.options['rtmp-host'],
+                                                  self.options['rtmp-port']))
+        log.msg('       Application:  %s' % self.options['rtmp-app'])
+        log.msg('       RTMPy:        %s' % '.'.join([str(x) for x in __version__]))
+        log.msg('')
+        log.msg('Service completed startup.')
 
 
 class Options(usage.Options):
@@ -95,11 +115,12 @@ class Options(usage.Options):
     """
 
     optParameters = [
-        ['log-level', None, logging.ERROR, 'Log level.'],
+        ['log-level', None, logging.INFO, 'Log level.'],
         ['amf-host', None, 'localhost', 'The interface for the AMF gateway to listen on.'],
         ['amf-service', None, 'acidswf', 'The service name.'],
         ['amf-port', None, 8000, 'The port number for the AMF gateway to listen on.'],
         ['rtmp-port', None, 1935, 'The port number for the RTMP server to listen on.'],
+        ['rtmp-protocol', None, 'rtmp', 'Version of the RTMP protocol that the server should use.'],
         ['rtmp-host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
         ['rtmp-app', None, 'acidswf', 'The RTMP application name.'],
         ['object-encoding', None, AMF3, 'The AMF object encoding.'],
@@ -121,9 +142,10 @@ class AcidSWFServiceMaker(object):
     def makeService(self, options):
         top_service = service.MultiService()
         acidswf_service = AcidSWFService()
+        acidswf_service.options = options
         acidswf_service.setServiceParent(top_service)
 
-        # web
+        # amf
         services = {
             options['amf-service']: echo.echo,
             options['amf-service'] + "RO": echo
