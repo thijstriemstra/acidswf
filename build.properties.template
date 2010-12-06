@@ -5,8 +5,8 @@ version=1.0
 amf.host=localhost
 amf.port=8000
 amf.service=acidswf
-amf.protocol=http
-amf.url=${amf.protocol}://${amf.host}:${amf.port}
+amf.transport=http
+amf.url=${amf.transport}://${amf.host}:${amf.port}
 
 # RTMP
 rtmp.host=${amf.host}

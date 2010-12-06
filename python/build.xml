@@ -22,10 +22,12 @@
 		<exec executable="${server.cmd}" spawn="false" output="server-log.txt">
             <arg value="--nodaemon"/>
             <arg value="acidswf"/>
+			<arg value="--amf-transport=${amf.transport}"/>
             <arg value="--amf-host=${amf.host}"/>
             <arg value="--amf-port=${amf.port}"/>
             <arg value="--amf-service=${amf.service}"/>
             <arg value="--rtmp-port=${rtmp.port}"/>
+			<arg value="--rtmp-protocol=${rtmp.protocol}"/>
             <arg value="--rtmp-host=${rtmp.host}"/>
             <arg value="--rtmp-app=${rtmp.app}"/>
         </exec>

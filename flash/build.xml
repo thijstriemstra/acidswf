@@ -50,11 +50,11 @@
 		<mkdir dir="${dist.loc}" />
         
 		<!-- AMF -->
-		<test host="${amf.protocol}://${amf.host}"
+		<test host="${amf.transport}://${amf.host}"
 			  port="${amf.port}" service="${amf.service}"
 			  url="${amf.url}" encoding="0"/>
 		
-		<test host="${amf.protocol}://${amf.host}"
+		<test host="${amf.transport}://${amf.host}"
 			  port="${amf.port}" service="${amf.service}"
 			  url="${amf.url}" encoding="3"/>
 		

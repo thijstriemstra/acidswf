@@ -10,6 +10,8 @@ AcidSWF plugin for twistd.
 
 import logging
 
+from OpenSSL import SSL
+
 from zope.interface import implements
 
 from twisted.python import usage, log
@@ -68,6 +70,19 @@ class WebServer(server.Site):
         server.Site.__init__(self, root)
 
 
+class ServerContextFactory:
+
+    def getContext(self):
+        """
+        Create an SSL context.
+        """
+        ctx = SSL.Context(SSL.SSLv23_METHOD)
+        ctx.use_certificate_file('ssl/ca.pem')
+        ctx.use_privatekey_file('ssl/privkey.pem')
+
+        return ctx
+
+
 class RTMPServer(ServerFactory):
     """
     RTMP server.
@@ -92,8 +107,9 @@ class AcidSWFService(service.Service):
         log.msg('AMF')
         log.msg(80 * '-')
         log.msg('')
-        log.msg('       Gateway:      %s:%s' % (self.options['amf-host'],
-                                              self.options['amf-port']))
+        log.msg('       Gateway:      %s://%s:%s' % (self.options['amf-transport'],
+                                                     self.options['amf-host'],
+                                                     self.options['amf-port']))
         log.msg('       Service:      %s' % self.options['amf-service'])
         log.msg('       PyAMF:        %s' % str(version))
         log.msg('')
@@ -116,14 +132,14 @@ class Options(usage.Options):
 
     optParameters = [
         ['log-level', None, logging.INFO, 'Log level.'],
+        ['amf-transport', None, 'http', 'Run the AMF server on HTTP or HTTPS transport.'],
         ['amf-host', None, 'localhost', 'The interface for the AMF gateway to listen on.'],
-        ['amf-service', None, 'acidswf', 'The service name.'],
+        ['amf-service', None, 'acidswf', 'The remote service name.'],
         ['amf-port', None, 8000, 'The port number for the AMF gateway to listen on.'],
         ['rtmp-port', None, 1935, 'The port number for the RTMP server to listen on.'],
         ['rtmp-protocol', None, 'rtmp', 'Version of the RTMP protocol that the server should use.'],
         ['rtmp-host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
         ['rtmp-app', None, 'acidswf', 'The RTMP application name.'],
-        ['object-encoding', None, AMF3, 'The AMF object encoding.'],
         ['crossdomain', None, 'crossdomain.xml', 'Path to a crossdomain.xml file.'],
     ]
 
