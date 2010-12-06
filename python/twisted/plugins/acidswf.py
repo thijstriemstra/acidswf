@@ -96,7 +96,7 @@ class AcidSWFService(service.Service):
     """
     AcidSWF service.
     """
-    
+
     def startService(self):
         service.Service.startService(self)
 
@@ -170,7 +170,7 @@ class AcidSWFServiceMaker(object):
         web_service = internet.TCPServer(int(options['amf-port']), factory,
                                          interface=options['amf-host'])
         web_service.setServiceParent(top_service)
-        
+
         # rtmp
         app = LiveApplication()
         factory = RTMPServer( {options['rtmp-app']: app})

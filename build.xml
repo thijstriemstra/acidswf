@@ -47,6 +47,10 @@
         </parallel>
 	</target>
 
+	<target name="gen-keys">
+		<ant antfile="python/ssl/build.xml" target="all" inheritall="false"/>
+	</target>
+	
     <target name="docs">
             <exec executable="make" spawn="false" dir="${doc}">
                 <arg value="html"/>

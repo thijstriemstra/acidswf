@@ -1,0 +1,28 @@
+<project name="AcidSWF-SSL" basedir="." default="all">
+	
+    <loadproperties srcFile="../../build.properties"/>
+    
+	<property name="openssl" value="openssl"/>
+
+	<target name="all" depends="gen-ca, gen-server-key"/>
+	
+	<!-- See http://acs.lbl.gov/~boverhof/openssl_certs.html -->
+	
+	<target name="gen-ca">
+		<exec executable="${openssl}" spawn="true">
+			<arg line="req"/>
+			<arg line="-out ca.pem"/>
+			<arg line="-new"/>
+			<arg line="-x509"/>
+        </exec>
+	</target>
+	
+	<target name="gen-server-key">
+		<exec executable="${openssl}">
+			<arg value="genrsa"/>
+			<arg value="-out server.key"/>
+			<arg value="1024"/>
+        </exec>
+	</target>
+
+</project>
