@@ -1,0 +1,34 @@
+<project name="AcidSWF" basedir="." default="test">
+	<!-- setup a prefix for all environment variables -->
+	<property environment="env" />
+	
+    <loadproperties srcFile="../build.properties"/>
+    
+	<property name="python" value="python2.7"/>
+	<property name="server.cmd" value="twistd"/>
+
+	<target name="python-environment">
+		<exec executable="${python}" spawn="false" outputproperty="python.version">
+            <arg value="--version"/>
+        </exec>
+		<exec executable="${server.cmd}" spawn="false" outputproperty="twistd.version">
+            <arg value="--version"/>
+        </exec>
+		<echo>${python.version}</echo>
+		<echo>${twistd.version}</echo>
+	</target>
+		
+	<target name="test" depends="python-environment">
+		<exec executable="${server.cmd}" spawn="false" output="server-log.txt">
+            <arg value="--nodaemon"/>
+            <arg value="acidswf"/>
+            <arg value="--amf-host=${amf.host}"/>
+            <arg value="--amf-port=${amf.port}"/>
+            <arg value="--amf-service=${amf.service}"/>
+            <arg value="--rtmp-port=${rtmp.port}"/>
+            <arg value="--rtmp-host=${rtmp.host}"/>
+            <arg value="--rtmp-app=${rtmp.app}"/>
+        </exec>
+	</target>
+
+</project>

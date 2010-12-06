@@ -36,13 +36,13 @@
 		<delete dir="${output.loc}" />
 	</target>
 
-	<target name="environment">
+	<target name="flash-environment">
 		<echo>${ant.version}</echo>
 		<echo>Java ${ant.java.version}</echo>
 		<echo>Flex ${flex.version}.${flex.build}</echo>
 	</target>
 		
-	<target name="test" depends="environment, clean">
+	<target name="test" depends="flash-environment, clean">
 		<!-- Create directories needed for the build process -->
 		<mkdir dir="${output.loc}" />
 		<mkdir dir="${bin.loc}" />
@@ -78,7 +78,6 @@
 	    	<copy file="assets/Config.as"
 	              todir="${main.src.loc}/com/collab/acidswf" overwrite="true"
 	              verbose="true"/>
-	              
 			<replace 
 			    file="${main.src.loc}/com/collab/acidswf/Config.as">
 			  <replacefilter 

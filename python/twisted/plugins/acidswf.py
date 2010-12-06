@@ -34,7 +34,6 @@ class LiveApplication(Application):
     def acceptConnection(self, client):
         print "Accepted connection for '%s' from client: %s" % (self.name, client.id)
 
-
     def onDisconnect(self, client):
         print "Client '%s' has been disconnected from the application" % client.id
 

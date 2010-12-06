@@ -9,3 +9,4 @@ docs/themes
 flash/bin
 flash/lib
 flash/src/com/collab/acidswf/Config.as
+python/server-log.txt
