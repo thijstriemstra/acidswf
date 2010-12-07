@@ -101,6 +101,11 @@ class AcidSWFService(service.Service):
     def startService(self):
         service.Service.startService(self)
 
+        try:
+            from OpenSSL.version import __version__ as pyopenssl
+        except ImportError:
+            pyopenssl = "Not Installed!"
+
         log.msg('')
         log.msg('AcidSWF 1.0')
         log.msg(80 * '=')
@@ -113,6 +118,9 @@ class AcidSWFService(service.Service):
                                                      self.options['amf-port']))
         log.msg('       Service:      %s' % self.options['amf-service'])
         log.msg('       PyAMF:        %s' % str(version))
+        if self.options['amf-transport'] == "https":
+            log.msg('       PyOpenSSL:    %s' % pyopenssl)
+
         log.msg('')
         log.msg('RTMP')
         log.msg(80 * '-')
@@ -161,31 +169,35 @@ class AcidSWFServiceMaker(object):
         acidswf_service = AcidSWFService()
         acidswf_service.options = options
         acidswf_service.setServiceParent(top_service)
-
+        
         # amf
-        services = {
+        amf_port = int(options['amf-port'])
+        amf_services = {
             options['amf-service']: echo.echo,
             options['amf-service'] + "RO": echo
         }
 
-        factory = WebServer(services, options['log-level'],
-                            options['crossdomain'])
+        amf_server = WebServer(amf_services, options['log-level'],
+                               options['crossdomain'])
 
         if options.get('amf-transport') == "https":
-            # ssl
-            web_service = internet.SSLServer(int(options['amf-port']), factory,
+            web_service = internet.SSLServer(amf_port, amf_server,
                                              SSLServerContextFactory(),
                                              interface=options['amf-host'])
         else:
-            web_service = internet.TCPServer(int(options['amf-port']), factory,
-                                         interface=options['amf-host'])
+            web_service = internet.TCPServer(amf_port, amf_server,
+                                             interface=options['amf-host'])
 
         web_service.setServiceParent(top_service)
 
         # rtmp
         app = LiveApplication()
-        factory = RTMPServer( {options['rtmp-app']: app})
-        rtmp_service = internet.TCPServer(int(options['rtmp-port']), factory,
+        rtmp_apps = {
+            options['rtmp-app']: app
+        }
+        
+        rtmp_server = RTMPServer( rtmp_apps )
+        rtmp_service = internet.TCPServer(int(options['rtmp-port']), rtmp_server,
                                          interface=options['rtmp-host'])
         rtmp_service.setServiceParent(top_service)
 
