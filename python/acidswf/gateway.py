@@ -9,9 +9,9 @@ Echo example gateway for Django.
 
 from pyamf.remoting.gateway.django import DjangoGateway
 
-import echo
+import acidswf
 
-echoGateway = DjangoGateway({
-    'echo': echo.echo,
-    'Red5Echo': echo,
+amfGateway = DjangoGateway({
+    'echo': acidswf.echo,
+    'Red5Echo': acidswf,
 }, expose_request=False)

@@ -15,6 +15,7 @@ from pyamf import register_class
 
 ECHO_NS = 'com.collab.acidswf'
 
+
 class RemoteClass(object):
     """
     This Python class is mapped to the clientside ActionScript class.

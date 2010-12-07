@@ -2,7 +2,7 @@
 # See LICENSE.txt for details.
 
 """
-@since: 0.1.0
+@since: 1.0.0
 """
 
 from django.conf.urls.defaults import *
@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     # AMF Remoting Gateway
     # The gateway parameter may also be a direct reference
     # to a pyamf.remoting.gateway.django.DjangoGateway instance
-    (r'^$', 'echo.gateway.echoGateway'),
+    (r'^$', 'acidswf.gateway.amfGateway'),
     
     # Serve crossdomain.xml from the directory below __file__
     (r'^crossdomain.xml$', 'django.views.static.serve',

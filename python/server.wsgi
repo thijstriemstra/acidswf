@@ -1,26 +1,18 @@
 # Copyright (c) The AcidSWF Project.
 # See LICENSE.txt for details.
 
-"""
-Echo test mod_wsgi example.
-
-You can use this example with the echo_test.swf clients.
-
-@since: 0.1
-"""
-
 import sys, os.path
 
 sys.path.append(os.path.dirname(__file__))
 
-import echo
+import acidswf
 import pyamf
 
 from pyamf.remoting.gateway.wsgi import WSGIGateway
 
 services = {
-    'echo': echo.echo,
-    'Red5Echo': echo
+    'echo': acidswf.echo,
+    'Red5Echo': acidswf
 }
 
 gw = WSGIGateway(services)

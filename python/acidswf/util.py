@@ -11,19 +11,19 @@ Support for:
  - U{Django<http://www.djangoproject.com>}
  - U{WASD<http://wasd.vsm.com.au/WASD/>}
  
-You can use this example with the echo_test.swf clients.
-
-@since: 0.1
+@since: 1.0.0
 """
 
 import os, os.path
 
 import logging
 
+
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s %(levelname)-5.5s [%(name)s] %(message)s'
 )
+
 
 def run_wsgi_server(name, options, services):
     """
@@ -74,6 +74,7 @@ def run_wsgi_server(name, options, services):
 
     return httpd.serve_forever
 
+
 def run_django_server(name, options, services):
     """
     Runs the AMF services using the
@@ -91,18 +92,19 @@ def run_django_server(name, options, services):
     """
     import os
     if 'DJANGO_SETTINGS_MODULE' not in os.environ:
-        os.environ['DJANGO_SETTINGS_MODULE'] = 'echo.settings'
+        os.environ['DJANGO_SETTINGS_MODULE'] = 'acidswf.settings'
 
     import subprocess
 
     host = options.host
     port = int(options.port)
     address = '%s:%d' % (host, port)
-    path = os.path.join('echo', 'manage.py')
+    path = os.path.join('acidswf', 'manage.py')
 
     print "Started %s - Django Server on http://%s:%d" % (name, host, port)
 
     return subprocess.call('python %s runserver %s' % (path, address), shell=True)
+
 
 def run_twisted_server(name, options, services):
     """
@@ -138,6 +140,7 @@ def run_twisted_server(name, options, services):
 
     reactor.listenTCP(port, server.Site(root), 50, host)   
     return reactor.run
+
 
 def run_wasd_server(name, options, services):
     """
@@ -180,6 +183,7 @@ def run_wasd_server(name, options, services):
 
     return serve_forever
 
+
 def run_server(name, options, services):
     """
     Starts the echo AMF server.
@@ -206,6 +210,7 @@ def run_server(name, options, services):
     except KeyboardInterrupt:
         pass
 
+
 def new_amf_client(name, options, service):
     """
     Runs AMF services for a C{RemotingService} echo client.
@@ -231,6 +236,7 @@ def new_amf_client(name, options, service):
 
     return echo_service
 
+
 def new_client(name, options, service):
     """
     Starts the echo AMF client.
@@ -242,9 +248,9 @@ def new_client(name, options, service):
     @param service: Target servicepath on the AMF gateway.
     @type service: C{str}
     """
-    
     return new_amf_client(name, options, service)
-    
+
+
 def parse_args(args):
     """
     Parse commandline options.

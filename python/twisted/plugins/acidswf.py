@@ -23,8 +23,6 @@ from rtmpy.server import ServerFactory, Application
 from pyamf import version
 from pyamf.remoting.gateway.twisted import TwistedGateway
 
-import echo
-
 
 class LiveApplication(Application):
     """
@@ -42,7 +40,7 @@ class LiveApplication(Application):
     def echo(self, data):
         #print 'echo: %s' % data
         return data
- 
+
 
 class WebServer(server.Site):
     """
@@ -170,11 +168,22 @@ class AcidSWFServiceMaker(object):
         acidswf_service.options = options
         acidswf_service.setServiceParent(top_service)
         
+        # rtmp
+        app = LiveApplication()
+        rtmp_apps = {
+            options['rtmp-app']: app
+        }
+        
+        rtmp_server = RTMPServer( rtmp_apps )
+        rtmp_service = internet.TCPServer(int(options['rtmp-port']), rtmp_server,
+                                         interface=options['rtmp-host'])
+        rtmp_service.setServiceParent(top_service)
+
         # amf
         amf_port = int(options['amf-port'])
         amf_services = {
-            options['amf-service']: echo.echo,
-            options['amf-service'] + "RO": echo
+            options['amf-service']: app.echo,
+            options['amf-service'] + "RO": app.echo
         }
 
         amf_server = WebServer(amf_services, options['log-level'],
@@ -189,18 +198,7 @@ class AcidSWFServiceMaker(object):
                                              interface=options['amf-host'])
 
         web_service.setServiceParent(top_service)
-
-        # rtmp
-        app = LiveApplication()
-        rtmp_apps = {
-            options['rtmp-app']: app
-        }
         
-        rtmp_server = RTMPServer( rtmp_apps )
-        rtmp_service = internet.TCPServer(int(options['rtmp-port']), rtmp_server,
-                                         interface=options['rtmp-host'])
-        rtmp_service.setServiceParent(top_service)
-
         return top_service
 
 
