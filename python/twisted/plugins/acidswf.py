@@ -10,8 +10,6 @@ AcidSWF plugin for twistd.
 
 import logging
 
-from OpenSSL import SSL
-
 from zope.interface import implements
 
 from twisted.python import usage, log
@@ -22,7 +20,7 @@ from twisted.application import internet, service
 from rtmpy import __version__
 from rtmpy.server import ServerFactory, Application
 
-from pyamf import version, AMF3
+from pyamf import version
 from pyamf.remoting.gateway.twisted import TwistedGateway
 
 import echo
@@ -35,6 +33,7 @@ class LiveApplication(Application):
 
     def acceptConnection(self, client):
         print "Accepted connection for '%s' from client: %s" % (self.name, client.id)
+
 
     def onDisconnect(self, client):
         print "Client '%s' has been disconnected from the application" % client.id
@@ -49,7 +48,7 @@ class WebServer(server.Site):
     """
     Webserver serving an AMF gateway and crossdomain.xml file.
     """
-    
+
     def __init__(self, services, logLevel=logging.ERROR,
                  crossdomain='crossdomain.xml'):
         observer = log.PythonLoggingObserver()
@@ -70,12 +69,14 @@ class WebServer(server.Site):
         server.Site.__init__(self, root)
 
 
-class ServerContextFactory:
+class SSLServerContextFactory:
 
     def getContext(self):
         """
         Create an SSL context.
         """
+        from OpenSSL import SSL
+
         ctx = SSL.Context(SSL.SSLv23_METHOD)
         ctx.use_certificate_file('ssl/ca.pem')
         ctx.use_privatekey_file('ssl/privkey.pem')
@@ -127,7 +128,7 @@ class AcidSWFService(service.Service):
 
 class Options(usage.Options):
     """
-    command-line options.
+    Command-line options.
     """
 
     optParameters = [
@@ -166,9 +167,19 @@ class AcidSWFServiceMaker(object):
             options['amf-service']: echo.echo,
             options['amf-service'] + "RO": echo
         }
-        factory = WebServer(services, options['log-level'], options['crossdomain'])
-        web_service = internet.TCPServer(int(options['amf-port']), factory,
+
+        factory = WebServer(services, options['log-level'],
+                            options['crossdomain'])
+
+        if options.get('amf-transport') == "https":
+            # ssl
+            web_service = internet.SSLServer(int(options['amf-port']), factory,
+                                             SSLServerContextFactory(),
+                                             interface=options['amf-host'])
+        else:
+            web_service = internet.TCPServer(int(options['amf-port']), factory,
                                          interface=options['amf-host'])
+
         web_service.setServiceParent(top_service)
 
         # rtmp

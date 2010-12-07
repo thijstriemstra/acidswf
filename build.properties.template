@@ -2,10 +2,10 @@
 version=1.0
 
 # AMF
+amf.transport=http
 amf.host=localhost
 amf.port=8000
 amf.service=acidswf
-amf.transport=http
 amf.url=${amf.transport}://${amf.host}:${amf.port}
 
 # RTMP
