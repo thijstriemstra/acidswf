@@ -50,30 +50,31 @@
 		<mkdir dir="${dist.loc}" />
         
 		<!-- AMF -->
-		<test host="${amf.transport}://${amf.host}"
+		<test transport="${amf.transport}" host="${amf.host}"
 			  port="${amf.port}" service="${amf.service}"
 			  url="${amf.url}" encoding="0"/>
 		
-		<test host="${amf.transport}://${amf.host}"
+		<test transport="${amf.transport}" host="${amf.host}"
 			  port="${amf.port}" service="${amf.service}"
 			  url="${amf.url}" encoding="3"/>
 		
 		<!-- RTMP -->
-		<test host="${rtmp.protocol}://${rtmp.host}"
+		<test transport="${rtmp.protocol}" host="${rtmp.host}"
 			  port="${rtmp.port}" service="echo"
 			  url="${rtmp.url}" encoding="0"/>
 		
-		<test host="${rtmp.protocol}://${rtmp.host}"
+		<test transport="${rtmp.protocol}" host="${rtmp.host}"
 			  port="${rtmp.port}" service="echo"
 			  url="${rtmp.url}" encoding="3"/>
 	</target>
 
     <macrodef name="test">
 	    <attribute name="host"/>
+    	<attribute name="transport"/>
     	<attribute name="port"/>
     	<attribute name="service"/>
     	<attribute name="url"/>
-    	<attribute name="encoding" default="0"/>
+    	<attribute name="encoding"/>
 	    <sequential>
 	    	<copy file="assets/Config.as"
 	              todir="${main.src.loc}/com/collab/acidswf" overwrite="true"
@@ -85,7 +86,7 @@
 	          <replacefilter 
 			    token="@projectVersion@" value="${version}"/>
 			  <replacefilter 
-			    token="@host@" value="@{host}"/>
+			    token="@host@" value="@{transport}://@{host}"/>
 	          <replacefilter 
 			    token="@port@" value="@{port}"/>
 			  <replacefilter 
@@ -112,8 +113,8 @@
 			<flexunit swf="${bin.loc}/TestRunner.swf" 
 			    workingDir="${bin.loc}"
 			    toDir="${report.loc}" 
-				haltonfailure="false" 
-				verbose="true" 
+				haltonfailure="false"
+				verbose="false" 
 				localTrusted="true"/>
 			<!--
 		      <source dir="${main.src.loc}" />
@@ -124,20 +125,22 @@
 		   </flexunit> -->
 
 			<!-- Generate readable JUnit-style reports -->
+	    	<property name="report.type" value="@{transport}-amf@{encoding}"/>
+	    	<property name="report.dir" location="${report.loc}/@{transport}-amf@{encoding}"/>
+	    	<mkdir dir="${report.dir}" />
+	    	
+	    	<echo message="Test results for AMF@{encoding} on @{url}"/>
+	    	
 			<junitreport todir="${report.loc}">
 				<fileset dir="${report.loc}">
 					<include name="TEST-*.xml" />
 				</fileset>
-				<report format="frames" todir="${report.loc}/html" />
+				<report format="noframes" todir="${report.loc}/html">
+					<param name="TITLE" expression="Test results for AMF@{encoding} on @{url}"/>
+				</report>
 			</junitreport>
+	    	  <move file="${report.loc}/html/junit-noframes.html" tofile="${report.loc}/${report.type}.html"/>
 	    </sequential>
     </macrodef>
-	
-	<target name="package" depends="test">
-		<!-- Zip up final website -->
-		<zip destfile="${output.loc}/${ant.project.name}.zip">
-			<fileset dir="${dist.loc}" />
-		</zip>
-	</target>
 	
 </project>
