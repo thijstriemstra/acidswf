@@ -29,8 +29,12 @@ class LiveApplication(Application):
     Live app.
     """
 
-    def acceptConnection(self, client):
-        print "Accepted connection for '%s' from client: %s" % (self.name, client.id)
+    def onConnect(self, client):
+        print "\nAccepted connection for '%s' from client: %s" % (self.name, client.id)
+        print "Flash Player: %s" % client.agent
+        print "URI: %s\n" % client.uri
+
+        return True
 
 
     def onDisconnect(self, client):
