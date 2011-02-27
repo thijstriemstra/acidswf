@@ -2,7 +2,7 @@
 # See LICENSE.txt for details.
 
 """
-AcidSWF plugin for twistd.
+AcidSWF plugin for `twistd`.
 
 :see: http://twistedmatrix.com
 """
@@ -20,8 +20,11 @@ from twisted.application import internet, service
 from rtmpy import __version__
 from rtmpy.server import ServerFactory, Application
 
-from pyamf import version
+from pyamf import version, register_class
 from pyamf.remoting.gateway.twisted import TwistedGateway
+
+import data
+
 
 
 class LiveApplication(Application):
@@ -42,6 +45,12 @@ class LiveApplication(Application):
 
 
     def echo(self, data):
+        """
+        Return data back to the client.
+
+        @type data: C{mixed}
+        @param data: Decoded AS->Python data.
+        """
         #print 'echo: %s' % data
         return data
 
@@ -59,6 +68,11 @@ class WebServer(server.Site):
             level=logLevel, datefmt='%Y-%m-%d %H:%M:%S%z',
             format='%(asctime)s [%(name)s] %(message)s'
         )
+
+        # Map ActionScript class to Python class
+        ns = 'com.collab.acidswf'
+        register_class(data.RemoteClass, ns + '.RemoteClass')
+        register_class(data.ExternalizableClass, ns + '.ExternalizableClass')
 
         gateway = TwistedGateway(services, expose_request=False,
                                  logger=logging)
