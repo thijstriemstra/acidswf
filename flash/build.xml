@@ -13,7 +13,9 @@
     <property name="report.loc" location="${output.loc}/report" />
     <property name="dist.loc" location="${output.loc}/dist" />
 
-    <!-- You can set this loction directly so mxmlc will work correctly,
+    <property name="flashplayer" location="/home/thijs/opt/Adobe Flash Player/flashplayerdebugger" />
+
+    <!-- You can set this location directly for mxmlc to work correctly,
      eg. /Applications/Adobe Flex Builder 3 Plug-in/sdks/4.1.0,
      or set FLEX_HOME as an environment variable and use as below,
      eg. ${env.FLEX_HOME} -->
@@ -76,6 +78,10 @@
     	<attribute name="url"/>
     	<attribute name="encoding"/>
 	    <sequential>
+            <echo message=""/>
+	    	<echo message="Starting tests for AMF@{encoding} on @{url}"/>
+	    	<echo message=""/>
+
 	    	<copy file="assets/Config.as"
 	              todir="${main.src.loc}/com/collab/acidswf" overwrite="true"
 	              verbose="true"/>
@@ -113,10 +119,10 @@
 			<flexunit swf="${bin.loc}/TestRunner.swf" 
 			          workingDir="${bin.loc}"
 			          toDir="${report.loc}" 
-				  haltonfailure="false"
-                                  command="/home/thijs/opt/Adobe Flash Player/flashplayerdebugger"
-				  verbose="false" 
-				  localTrusted="true"/>
+				      haltonfailure="false"
+                      command="${flashplayer}"
+				      verbose="false" 
+				      localTrusted="true"/>
 			<!--
 		      <source dir="${main.src.loc}" />
 		      <testSource dir="${test.src.loc}">
@@ -130,9 +136,7 @@
 	    	<property name="report.dir" location="${report.loc}/@{transport}-amf@{encoding}"/>
 	    	<mkdir dir="${report.dir}" />
 	    	
-	    	<echo message="Test results for AMF@{encoding} on @{url}"/>
-	    	
-			<junitreport todir="${report.loc}">
+   			<junitreport todir="${report.loc}">
 				<fileset dir="${report.loc}">
 					<include name="TEST-*.xml" />
 				</fileset>
@@ -140,7 +144,14 @@
 					<param name="TITLE" expression="Test results for AMF@{encoding} on @{url}"/>
 				</report>
 			</junitreport>
-	    	  <move file="${report.loc}/html/junit-noframes.html" tofile="${report.loc}/${report.type}.html"/>
+            
+	    	<move file="${report.loc}/html/junit-noframes.html"
+                  tofile="${report.loc}/${report.type}.html"/>
+            
+            <echo message=""/>
+	    	<echo message="Completed tests for AMF@{encoding} on @{url}"/>
+	    	<echo message=""/>
+
 	    </sequential>
     </macrodef>
 	
