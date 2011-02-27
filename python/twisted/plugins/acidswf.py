@@ -27,9 +27,9 @@ import data
 
 
 
-class LiveApplication(Application):
+class RTMPApplication(Application):
     """
-    Live app.
+    RTMP server application.
     """
 
     def onConnect(self, client):
@@ -187,7 +187,7 @@ class AcidSWFServiceMaker(object):
         acidswf_service.setServiceParent(top_service)
         
         # rtmp
-        app = LiveApplication()
+        app = RTMPApplication()
         rtmp_apps = {
             options['rtmp-app']: app
         }
