@@ -132,10 +132,8 @@
 		   </flexunit> -->
 
 			<!-- Generate readable JUnit-style reports -->
-	    	<property name="report.type" value="@{transport}-amf@{encoding}"/>
-	    	<property name="report.dir" location="${report.loc}/@{transport}-amf@{encoding}"/>
-	    	<mkdir dir="${report.dir}" />
-	    	
+	    	<mkdir dir="${report.loc}" />
+
    			<junitreport todir="${report.loc}">
 				<fileset dir="${report.loc}">
 					<include name="TEST-*.xml" />
@@ -146,7 +144,7 @@
 			</junitreport>
             
 	    	<move file="${report.loc}/html/junit-noframes.html"
-                  tofile="${report.loc}/${report.type}.html"/>
+                  tofile="${report.loc}/html/@{transport}-amf@{encoding}.html"/>
             
             <echo message=""/>
 	    	<echo message="Completed tests for AMF@{encoding} on @{url}"/>
