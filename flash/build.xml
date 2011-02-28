@@ -11,8 +11,6 @@
     <property name="bin.loc" location="${basedir}/bin" />
     <property name="output.loc" location="${bin.loc}" />
     <property name="report.loc" location="${output.loc}/report" />
-    <property name="dist.loc" location="${output.loc}/dist" />
-
     <property name="flashplayer" location="/home/thijs/opt/Adobe Flash Player/flashplayerdebugger" />
 
     <!-- You can set this location directly for mxmlc to work correctly,
@@ -49,7 +47,6 @@
 		<mkdir dir="${output.loc}" />
 		<mkdir dir="${bin.loc}" />
 		<mkdir dir="${report.loc}" />
-		<mkdir dir="${dist.loc}" />
         
 		<!-- AMF -->
 		<test transport="${amf.transport}" host="${amf.host}"
