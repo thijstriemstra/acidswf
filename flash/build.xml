@@ -143,6 +143,10 @@
 	    	<move file="${report.loc}/html/junit-noframes.html"
                   tofile="${report.loc}/html/@{transport}-amf@{encoding}.html"/>
             
+            <delete>
+                <fileset dir="${report.loc}" includes="**/TEST-*.xml"/>
+            </delete>
+
             <echo message=""/>
 	    	<echo message="Completed tests for AMF@{encoding} on @{url}"/>
 	    	<echo message=""/>
