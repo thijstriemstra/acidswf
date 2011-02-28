@@ -118,14 +118,8 @@ Run Ant from the root of your AcidSWF source directory::
 
     ant
 
-This will print the script's progress on stdout. Below is a description of the various
-tasks. Check :download:`this<content/output-full.txt>` to see an example of the
-full output.
-
-It starts with the ``config`` task that shows which servers will be started:
-
-.. literalinclude:: content/output-full.txt
-    :lines: 1-19
+This will print the script's progress on stdout. For each test suite an HTML
+report will be created in the :file:`flash/bin/report/html` folder.
 
 
 .. _AMF:	http://en.wikipedia.org/wiki/AMF
