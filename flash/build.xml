@@ -65,6 +65,11 @@
 		<test transport="${rtmp.protocol}" host="${rtmp.host}"
 			  port="${rtmp.port}" service="echo"
 			  url="${rtmp.url}" encoding="3"/>
+
+        <copy file="assets/index.html"
+	          todir="${report.loc}/html" overwrite="true"
+	          verbose="true"/>
+
 	</target>
 
     <macrodef name="test">
