@@ -18,7 +18,7 @@ from twisted.web import server, resource, static
 from twisted.application import internet, service
 
 from rtmpy import __version__
-from rtmpy.server import ServerFactory, Application
+from rtmpy.server import ServerFactory, Application, Client
 
 from pyamf import version, register_class
 from pyamf.remoting.gateway.twisted import TwistedGateway
@@ -27,10 +27,50 @@ import data
 
 
 
+def echo(data):
+    """
+    Return data back to the client.
+
+    @type data: C{mixed}
+    @param data: Decoded AS->Python data.
+    """
+    return data
+
+
+class RTMPClient(Client):
+    """
+    RTMP client that exposes remote methods.
+    """
+
+    def echo(self, data):
+        """
+        Return data back to the client.
+
+        @type data: C{mixed}
+        @param data: Decoded AS->Python data.
+        """
+        return data
+
+
+    def invokeOnClient(self, data):
+        """
+        Invokes some method on the connected clients.
+        """
+        print 'invokeOnClient: %s' % data 
+        for client in self.application.clients.values():
+            #client.call('some_method', data)
+            d = client.call('some_method', data, notify=True)
+
+        return data
+
+
 class RTMPApplication(Application):
     """
     RTMP server application.
     """
+
+    client = RTMPClient
+
 
     def onConnect(self, client):
         print "\nAccepted connection for '%s' from client: %s" % (self.name, client.id)
@@ -42,17 +82,6 @@ class RTMPApplication(Application):
 
     def onDisconnect(self, client):
         print "Client '%s' has been disconnected from the application" % client.id
-
-
-    def echo(self, data):
-        """
-        Return data back to the client.
-
-        @type data: C{mixed}
-        @param data: Decoded AS->Python data.
-        """
-        #print 'echo: %s' % data
-        return data
 
 
 class WebServer(server.Site):
@@ -200,8 +229,8 @@ class AcidSWFServiceMaker(object):
         # amf
         amf_port = int(options['amf-port'])
         amf_services = {
-            options['amf-service']: app.echo,
-            options['amf-service'] + "RO": app.echo
+            options['amf-service']: echo,
+            options['amf-service'] + "RO": echo
         }
 
         amf_server = WebServer(amf_services, options['log-level'],
