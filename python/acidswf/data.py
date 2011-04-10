@@ -4,16 +4,10 @@
 # See LICENSE.txt for details.
 
 """
-Echo test core functionality. This module sets up the class
-mappings related to the echo_test clients.
-
 @since: 1.0
 """
 
-from pyamf import register_class
-
-
-ECHO_NS = 'com.collab.acidswf'
+NAMESPACE = 'com.collab.acidswf'
 
 
 class RemoteClass(object):
@@ -94,19 +88,3 @@ class ExternalizableClass(object):
         output.writeUnsignedInt(1)
         output.writeUTF("Hello world!")
         output.writeUTFBytes("Hello world!")
-
-
-def echo(data):
-    """
-    Return data back to the client.
-
-    @type data: C{mixed}
-    @param data: Decoded AS->Python data.
-    """
-    return data
-
-
-# Map ActionScript class to Python class
-for ns in [ECHO_NS]:
-    register_class(RemoteClass, ns + '.RemoteClass')
-    register_class(ExternalizableClass, ns + '.ExternalizableClass')

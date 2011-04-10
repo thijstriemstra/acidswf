@@ -3,8 +3,6 @@
 
 """
 AcidSWF plugin for `twistd`.
-
-:see: http://twistedmatrix.com
 """
 
 
@@ -18,70 +16,14 @@ from twisted.web import server, resource, static
 from twisted.application import internet, service
 
 from rtmpy import __version__
-from rtmpy.server import ServerFactory, Application, Client
+from rtmpy.server import ServerFactory
 
 from pyamf import version, register_class
 from pyamf.remoting.gateway.twisted import TwistedGateway
 
-import data
+from acidswf import data
+from acidswf import RTMPApplication, echo
 
-
-
-def echo(data):
-    """
-    Return data back to the client.
-
-    @type data: C{mixed}
-    @param data: Decoded AS->Python data.
-    """
-    return data
-
-
-class RTMPClient(Client):
-    """
-    RTMP client that exposes remote methods.
-    """
-
-    def echo(self, data):
-        """
-        Return data back to the client.
-
-        @type data: C{mixed}
-        @param data: Decoded AS->Python data.
-        """
-        return data
-
-
-    def invokeOnClient(self, data):
-        """
-        Invokes some method on the connected clients.
-        """
-        print 'invokeOnClient: %s' % data 
-        for client in self.application.clients.values():
-            #client.call('some_method', data)
-            d = client.call('some_method', data, notify=True)
-
-        return data
-
-
-class RTMPApplication(Application):
-    """
-    RTMP server application.
-    """
-
-    client = RTMPClient
-
-
-    def onConnect(self, client):
-        print "\nAccepted connection for '%s' from client: %s" % (self.name, client.id)
-        print "Flash Player: %s" % client.agent
-        print "URI: %s\n" % client.uri
-
-        return True
-
-
-    def onDisconnect(self, client):
-        print "Client '%s' has been disconnected from the application" % client.id
 
 
 class WebServer(server.Site):
@@ -98,10 +40,8 @@ class WebServer(server.Site):
             format='%(asctime)s [%(name)s] %(message)s'
         )
 
-        # Map ActionScript class to Python class
-        ns = 'com.collab.acidswf'
-        register_class(data.RemoteClass, ns + '.RemoteClass')
-        register_class(data.ExternalizableClass, ns + '.ExternalizableClass')
+        self._registerClass(data.RemoteClass)
+        self._registerClass(data.ExternalizableClass)
 
         gateway = TwistedGateway(services, expose_request=False,
                                  logger=logging)
@@ -112,6 +52,15 @@ class WebServer(server.Site):
                       defaultType='application/xml'))
 
         server.Site.__init__(self, root)
+
+
+    def _registerClass(self, klass): 
+        """
+        Map ActionScript class to Python class.
+        """
+        register_class(klass, '%s.%s' % (data.NAMESPACE,
+                                         klass.__class__.__name__))
+
 
 
 class SSLServerContextFactory:
@@ -214,13 +163,13 @@ class AcidSWFServiceMaker(object):
         acidswf_service = AcidSWFService()
         acidswf_service.options = options
         acidswf_service.setServiceParent(top_service)
-        
+
         # rtmp
         app = RTMPApplication()
         rtmp_apps = {
             options['rtmp-app']: app
         }
-        
+
         rtmp_server = RTMPServer( rtmp_apps )
         rtmp_service = internet.TCPServer(int(options['rtmp-port']), rtmp_server,
                                          interface=options['rtmp-host'])
@@ -245,7 +194,7 @@ class AcidSWFServiceMaker(object):
                                              interface=options['amf-host'])
 
         web_service.setServiceParent(top_service)
-        
+
         return top_service
 
 
