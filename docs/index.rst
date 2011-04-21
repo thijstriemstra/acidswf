@@ -50,9 +50,9 @@ The default configuration for Python also requires:
 Name                         Version
 ===========================  ========
 Python_                      2.5
-Twisted_                     8.0
+Twisted_                     11.0
 PyAMF_                       0.6
-RTMPy_                       0.1
+RTMPy_                       0.2
 ===========================  ========
 
 To build the documentation you need the following software:
