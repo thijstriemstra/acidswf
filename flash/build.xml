@@ -1,4 +1,4 @@
-<project name="AcidSWF" basedir="." default="test">
+<project name="AcidSWF" basedir="." default="test-amf">
 	<!-- setup a prefix for all environment variables -->
 	<property environment="env" />
 	
@@ -42,7 +42,7 @@
 		<echo>Flex ${flex.version}.${flex.build}</echo>
 	</target>
 		
-	<target name="test" depends="flash-environment, clean">
+	<target name="test-amf" depends="flash-environment, clean">
 		<!-- Create directories needed for the build process -->
 		<mkdir dir="${output.loc}" />
 		<mkdir dir="${bin.loc}" />
@@ -57,6 +57,17 @@
 			  port="${amf.port}" service="${amf.service}"
 			  url="${amf.url}" encoding="3"/>
 		
+        <copy file="assets/index.html"
+	          todir="${report.loc}/html" overwrite="true"
+	          verbose="true"/>
+	</target>
+	
+	<target name="test-rtmp" depends="flash-environment, clean">
+		<!-- Create directories needed for the build process -->
+		<mkdir dir="${output.loc}" />
+		<mkdir dir="${bin.loc}" />
+		<mkdir dir="${report.loc}" />
+        
 		<!-- RTMP -->
 		<test transport="${rtmp.protocol}" host="${rtmp.host}"
 			  port="${rtmp.port}" service="echo"
@@ -69,7 +80,6 @@
         <copy file="assets/index.html"
 	          todir="${report.loc}/html" overwrite="true"
 	          verbose="true"/>
-
 	</target>
 
     <macrodef name="test">

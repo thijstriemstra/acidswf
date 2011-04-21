@@ -5,12 +5,13 @@
 
 import sys
 
-import acidswf
-from acidswf.util import parse_args, run_server
+from acidswf.application import echo
+from acidswf.django.util import parse_args, run_server
+
 
 options = parse_args(sys.argv[1:])
 services = {
-    options[0].service: acidswf.echo,
+    options[0].service: echo,
     'Red5Echo': echo
 }
 
