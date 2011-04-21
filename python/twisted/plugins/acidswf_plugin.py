@@ -10,15 +10,22 @@ AcidSWF services.
 from twisted.application.service import ServiceMaker
 
 
+AcidSWFDefault = ServiceMaker(
+    "AcidSWF",
+    "acidswf.application.default",
+    ("Tests AMF/RTMP implementations."),
+    "all")
+
+
 AcidSWFAMF = ServiceMaker(
     "AcidSWF AMF",
     "acidswf.application.amf",
-    ("Plugin to test AMF implementations."),
+    ("Tests AMF implementations."),
     "amf")
 
 
 AcidSWFRTMP = ServiceMaker(
     "AcidSWF RTMP",
     "acidswf.application.rtmp",
-    ("Plugin to test RTMP implementations."),
+    ("Tests RTMP implementations."),
     "rtmp")

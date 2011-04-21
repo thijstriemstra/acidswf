@@ -35,8 +35,16 @@
 	</target>
 		
 	<target name="all" depends="config">
-		<test target="test-amf"/>
-		<test target="test-rtmp"/>
+		<delete file="server-log.txt"/>
+        <parallel>
+            <daemons>
+            	<ant antfile="python/build.xml" inheritall="false"/>
+            </daemons>
+            <sequential>
+                <sleep seconds="3"/>
+                <ant antfile="flash/build.xml" inheritall="false"/>
+            </sequential>
+        </parallel>
 	</target>
 
 	<target name="gen-keys">
@@ -55,19 +63,4 @@
             </exec>
   	</target>
 
-    <macrodef name="test">
-	    <attribute name="target"/>
-	    <sequential>
-	    	<delete file="server-log.txt"/>
-	        <parallel>
-	            <daemons>
-	            	<ant antfile="python/build.xml" target="@{target}" inheritall="false"/>
-	            </daemons>
-	            <sequential>
-	                <sleep seconds="3"/>
-	                <ant antfile="flash/build.xml" target="@{target}" inheritall="false"/>
-	            </sequential>
-	        </parallel>
-	    </sequential>
-  	</macrodef>
 </project> 

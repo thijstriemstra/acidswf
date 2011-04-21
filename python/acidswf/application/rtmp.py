@@ -5,14 +5,18 @@
 Support for creating a service which runs a RTMP server.
 """
 
-import logging
-
 from twisted.python import usage
-from twisted.application import internet, service
+from twisted.application import service
 
-from acidswf.server import RTMPServer
-from acidswf.service import RTMPService
-from acidswf.application import RTMPApplication
+from acidswf.service import createRTMPService
+
+
+optParameters = [
+    ['rtmp-port', None, 1935, 'The port number for the RTMP server to listen on.'],
+    ['rtmp-protocol', None, 'rtmp', 'Version of the RTMP protocol that the server should use.'],
+    ['rtmp-host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
+    ['rtmp-app', None, 'acidswf', 'The RTMP application name.'],
+]
 
 
 class Options(usage.Options):
@@ -21,14 +25,8 @@ class Options(usage.Options):
     """
     synopsis = "[rtmp options]"
 
-    optParameters = [
-        ['log-level', None, logging.INFO, 'Log level.'],
-        ['port', None, 1935, 'The port number for the RTMP server to listen on.'],
-        ['protocol', None, 'rtmp', 'Version of the RTMP protocol that the server should use.'],
-        ['host', None, 'localhost', 'The interface for the RTMP server to listen on.'],
-        ['app', None, 'acidswf', 'The RTMP application name.'],
-    ]
-    
+    optParameters = optParameters
+
     longdesc = """\
 This starts an RTMP server."""
 
@@ -53,18 +51,7 @@ This starts an RTMP server."""
 
 def makeService(options):
     top_service = service.MultiService()
-    rtmp_service = RTMPService()
-    rtmp_service.options = options
-    rtmp_service.setServiceParent(top_service)
-
-    app = RTMPApplication()
-    rtmp_apps = {
-        options['app']: app
-    }
-
-    rtmp_server = RTMPServer( rtmp_apps )
-    rtmp_service = internet.TCPServer(int(options['port']), rtmp_server,
-                                     interface=options['host'])
-    rtmp_service.setServiceParent(top_service)
+    
+    createRTMPService(top_service, options)
 
     return top_service
