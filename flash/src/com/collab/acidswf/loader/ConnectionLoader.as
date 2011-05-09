@@ -14,13 +14,11 @@ package com.collab.acidswf.loader
 	public class ConnectionLoader extends NetConnectionLoader
 	{
 		/**
-		 * Constructor.
-		 *  
-		 * @param data
+		 * Creates a new ConnectionLoader object.
 		 */		
-		public function ConnectionLoader(data:Array)
+		public function ConnectionLoader()
 		{
-			super(Config.getURL(), Config.getService(), data, Config.OBJECT_ENCODING);
+			super( Config.getURL(), Config.getService(), Config.OBJECT_ENCODING );
 		}
 		
 	}

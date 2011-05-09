@@ -2,13 +2,12 @@
 // See LICENSE.txt for details.
 package com.collab.acidswf.loader
 {
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.events.NetStatusEvent;
 	import flash.events.SecurityErrorEvent;
 	import flash.net.NetConnection;
 	import flash.net.Responder;
-	
-	import org.flexunit.runner.external.ExternalDependencyToken;
-	import org.flexunit.runner.external.IExternalDependencyLoader;
 	
 	/**
 	 * Custom FlexUnit dependency loader for AcidSWF.
@@ -17,36 +16,42 @@ package com.collab.acidswf.loader
 	 * @playerversion Flash 9.0
 	 * @since 1.0 
 	 */	
-	public class NetConnectionLoader implements IExternalDependencyLoader
+	public class NetConnectionLoader extends EventDispatcher
 	{
 		// ====================================================================
 		//     PRIVATE VARS
 		// ====================================================================
 		
-		private var service				: String;
-		private var hostURL				: String;
-		private var connection			: NetConnection;
-		private var responder			: Responder;
-		private var token				: ExternalDependencyToken;
-		private var encoding			: uint;
-		private var testData			: Array;
-		private var calls				: Array;
+		private var _service				: String;
+		private var _hostURL				: String;
+		private var _connection				: NetConnection;
+		private var _responder				: Responder;
+		private var _encoding				: uint;
+		private var _testData				: *;
+		private var _result					: *;
 		
+		// ====================================================================
+		//     ACCESSOR
+		// ====================================================================
+		
+		public function get result():*
+		{
+			return _result;
+		}
+	
 		/**
-		 * Creates a new NetConnectionLoader.
+		 * Creates a new NetConnectionLoader object.
 		 *  
 		 * @param url
 		 * @param service
-		 * @param data
 		 * @param encoding
 		 */		
 		public function NetConnectionLoader( url:String, service:String,
-											 data:Array, encoding:uint )
+											 encoding:uint )
 		{
-			this.hostURL = url;
-			this.service = service;
-			this.testData = data;
-			this.encoding = encoding;
+			_hostURL = url;
+			_service = service;
+			_encoding = encoding;
 			
 			connect();
 		}
@@ -56,21 +61,20 @@ package com.collab.acidswf.loader
 		 */		
 		protected function connect():void
 		{
-			calls = [];
+			//calls = [];
 			
-			token = new ExternalDependencyToken();
- 			responder = new Responder(resultHandler, faultHandler);
+ 			_responder = new Responder( resultHandler, faultHandler );
 			
-			connection = new NetConnection();
-			connection.objectEncoding = encoding;
-			connection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
-            connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityError);
+			_connection = new NetConnection();
+			_connection.objectEncoding = _encoding;
+			_connection.addEventListener( NetStatusEvent.NET_STATUS, netStatusHandler );
+            _connection.addEventListener( SecurityErrorEvent.SECURITY_ERROR, securityError );
             
             try
             {
-				connection.connect( hostURL );
+				_connection.connect( _hostURL );
             }
-            catch (e:Error)
+            catch ( e:Error )
             {
             	// XXX: report something meaningful
             }
@@ -81,19 +85,6 @@ package com.collab.acidswf.loader
 		// ====================================================================
 		
 		/**
-		 * Retrieves a test class and starts loading the service.
-		 * 
-		 * @param testClass
-		 * @return 
-		 */		
-		public function retrieveDependency( testClass:Class ):ExternalDependencyToken
-		{
-			load( testData );
-			
-			return token;
-		}
-		
-		/**
 		 * Make a call to the remote server.
 		 * 
 		 * @param data List of payloads. Each individual payload will be passed
@@ -101,13 +92,9 @@ package com.collab.acidswf.loader
 		 */		
 		public function load( data:* ):void
 		{
-			var totalCalls:int = data.length;
-			var index:int = 0;
+			_testData = data;
 			
-			for ( index; index < totalCalls; index++ )
-			{
-				connection.call(service, responder, data[ index ]);
-			}
+			_connection.call( _service, _responder, data );
 		}
 		
 		// ====================================================================
@@ -119,9 +106,9 @@ package com.collab.acidswf.loader
 		 * 
 		 * @param event
 		 */		
-		protected function securityError(event:SecurityErrorEvent):void
+		protected function securityError( event:SecurityErrorEvent ):void
 		{
-			token.notifyFault( event.text );
+			storeResult( event.text, "error" );
 		}
  
 		/**
@@ -129,17 +116,18 @@ package com.collab.acidswf.loader
 		 * 
 		 * @param event
 		 */ 
-		protected function netStatusHandler(event:NetStatusEvent):void
+		protected function netStatusHandler( event:NetStatusEvent ):void
 		{
 			var code:String = event.info.code;
 			
-			switch (code)
+			switch ( code )
 			{
                 case "NetConnection.Connect.Success":
                     break;
                     
                 default:
-                    token.notifyFault( "\nError connecting: " + code + " (URL: " + hostURL + ")");
+					var msg:String = "Error connecting: " + code + " (URL: " + _hostURL + ")";
+					storeResult( msg, "error" );
                     break;
             }
 		}
@@ -149,18 +137,26 @@ package com.collab.acidswf.loader
 		// ====================================================================
 		
 		/**
+		 * @param msg
+		 * @param type
+		 */		
+		protected function storeResult( msg:*, type:String="status" ):void
+		{
+			var evt:Event = new Event( "response" );
+			
+			_result = msg;
+			
+			dispatchEvent( evt );
+		}
+		
+		/**
 		 * Invoked when a successful result is returned from the server.
 		 * 
 		 * @param result
 		 */		
-		protected function resultHandler(result:*):void
+		protected function resultHandler( result:* ):void
 		{
-			calls.push( result );
-			
-			if (calls.length >= testData.length )
-			{
-				token.notifyResult( calls );
-			}
+			storeResult( result );
 		}
 		
 		/**
@@ -168,9 +164,9 @@ package com.collab.acidswf.loader
 		 * 
 		 * @param error
 		 */		
-		protected function faultHandler(error:Object):void
+		protected function faultHandler( error:Object ):void
 		{
-			token.notifyFault( error.code );
+			storeResult( error.code, "error" );
 		}
  
 	}

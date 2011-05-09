@@ -1,25 +1,14 @@
 // Copyright (c) The AcidSWF Project.// See LICENSE.txt for details.
 package com.collab.acidswf
 {
-	import com.collab.acidswf.loader.ConnectionLoader;
+	import flash.events.Event;
 	
-	import org.flexunit.runners.Parameterized;
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.arrayWithSize;
 	import org.hamcrest.date.dateEqual;
-	import org.hamcrest.object.instanceOf;		[RunWith("org.flexunit.runners.Parameterized")]	/**	 * Tests for Date type.	 * 	 * @language 3.0	 * @playerversion Flash 9.0	 * @since 1.0 	 */
-	public class DateTest
-	{
-		private var foo					: Parameterized; 		private static var testData		: Array = getData();		public static var gateway		: ConnectionLoader = new ConnectionLoader( testData );		       	[DataPoints(loader="gateway")]		public static var result		: Array;				[Test]		public function create():void		{			assertThat(result[0], instanceOf( Date ));			assertThat(result[0], dateEqual(new Date(1982, 8, 30)));		}				[Test]		public function list():void		{			assertThat(result[1], arrayWithSize( 2 ));		}				private static function getData():Array
-		{			var tests:Array = [];			
-			var now: Date = new Date(1982, 8, 30);
-			tests.push(now);
-			
-			var tmp1: Array = new Array();
-			tmp1.push(now);
-			tmp1.push(now);
-			tests.push(tmp1);
-						return tests;		}
-		
-	}
+	import org.hamcrest.object.instanceOf;
+		/**	 * Tests for Date type.	 * 	 * @language 3.0	 * @playerversion Flash 9.0	 * @since 1.0 	 */
+	public class DateTest extends BaseTest
+	{		[Before]		public function setUp():void		{			setup();		}				[After]		public function tearDown():void		{			teardown();		}		
+		[Test(async)]		public function create():void		{			var lastThursday:Date = new Date( 1982, 8, 30 );						setupCall( function(event:Event, passThroughData:*):void			{				assertThat( loader.result, instanceOf( Date ));				assertThat( loader.result, dateEqual( passThroughData ));			},			lastThursday );		}				[Test(async)]		public function list():void		{			var lastThursday:Date = new Date( 1982, 8, 30 );						var tmp:Array = new Array();			tmp.push(lastThursday);			tmp.push(lastThursday);						setupCall( function(event:Event, passThroughData:*):void			{				assertThat( loader.result, arrayWithSize( 2 ));			},			tmp );		}			}
 }

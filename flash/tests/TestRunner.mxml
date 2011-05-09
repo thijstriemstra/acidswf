@@ -28,7 +28,7 @@ creationComplete="runTests();">
 		 import com.collab.acidswf.UnsupportedTest;
 		 import com.collab.acidswf.XMLDocumentTest;
 		 import com.collab.acidswf.XMLTest;
-
+		
          private var objectEncoding:int = CONFIG::objectEncoding;
          
          public function runTests() : void
@@ -36,7 +36,7 @@ creationComplete="runTests();">
             var tests:Array = [];
             var amf0_tests:Array = [ArrayTest,BooleanTest,CustomClassTest,DateTest,NullTest,NumberTest,ObjectTest,StringTest,UndefinedTest];
             var amf3_tests:Array = [ByteArrayTest,ExternalizableTest,RemoteClassTest,UnsupportedTest,XMLDocumentTest,XMLTest];
-            var flex_tests:Array = [ArrayCollectionTest, ObjectProxyTest];
+            var flex_tests:Array = [ArrayCollectionTest,ObjectProxyTest];
             
             if ( objectEncoding == 0 )
             {
@@ -48,7 +48,7 @@ creationComplete="runTests();">
             }
              
             var core : FlexUnitCore = new FlexUnitCore();
-            core.addListener(new CIListener());
+            core.addListener( new CIListener() );
             core.addListener( new TraceListener() );
             
 			var request:Request = Request.qualifyClasses.apply(
@@ -56,7 +56,7 @@ creationComplete="runTests();">
 					tests
 				);
 				
-            core.run(request);
+            core.run( request );
          }
       ]]>
    </fx:Script>

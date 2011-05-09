@@ -2,27 +2,15 @@
 package com.collab.acidswf
 {
 	import com.collab.acidswf.data.EchoClass;
-	import com.collab.acidswf.loader.ConnectionLoader;
 	
-	import org.flexunit.runners.Parameterized;
+	import flash.events.Event;
+	
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.arrayWithSize;
 	import org.hamcrest.object.hasProperty;
-	import org.hamcrest.object.instanceOf;		[RunWith("org.flexunit.runners.Parameterized")]	/**	 * Tests for custom classes.	 * 	 * @language 3.0	 * @playerversion Flash 9.0	 * @since 1.0 	 */
-	public class CustomClassTest
-	{		private var foo					: Parameterized; 		private static var testData		: Array = getData();		public static var gateway		: ConnectionLoader = new ConnectionLoader( testData );		       	[DataPoints(loader="gateway")]		public static var result		: Array;				[Test]		public function create():void		{			// NOTE: instance of object because this class intentionally			// isn't remotely aliased			assertThat(result[0], instanceOf( Object ));		}				[Test]		public function attributes():void		{			assertThat(result[ 1 ], hasProperty( "attr1" ));			assertThat(result[ 1 ], hasProperty( "attr2" ));		}				[Test]		public function list():void		{			assertThat(result[ 2 ], arrayWithSize( 2 ));		}		
-		private static function getData():Array
-		{			var tests:Array = [];						var tmp0: EchoClass = new EchoClass();			tests.push( tmp0 );			
-			var tmp1: EchoClass = new EchoClass();
-			tmp1.attr1 = "one";
-			tmp1.attr2 = 1;
-			tests.push(tmp1);
-			
-			var tmp2: Array = new Array();
-			tmp2.push(tmp1);
-			tmp2.push(tmp1);
-			tests.push(tmp2);						return tests;
-		}
-		
+	import org.hamcrest.object.instanceOf;
+		/**	 * Tests for custom class (untyped so data is turned into simple Objects).	 * 	 * @language 3.0	 * @playerversion Flash 9.0	 * @since 1.0 	 */
+	public class CustomClassTest extends BaseTest
+	{		[Before]		public function setUp():void		{			setup();		}				[After]		public function tearDown():void		{			teardown();		}				[Test(async)]		public function create():void		{			var tmp:EchoClass = new EchoClass();						setupCall( function(event:Event, passThroughData:*):void			{				// NOTE: instance of Object because this class intentionally				// isn't remotely aliased				assertThat( loader.result, instanceOf( Object ));			},			tmp );		}				[Test(async)]		public function attributes():void		{			var tmp:EchoClass = new EchoClass();			tmp.attr1 = "one";			tmp.attr2 = 1;						setupCall( function(event:Event, passThroughData:*):void			{				assertThat(loader.result, hasProperty( "attr1" ));				assertThat(loader.result, hasProperty( "attr2" ));			},			tmp );		}				[Test(async)]		public function list():void		{			var tmp1:EchoClass = new EchoClass();			tmp1.attr1 = "one";			tmp1.attr2 = 1;						var tmp2:Array = new Array();			tmp2.push(tmp1);			tmp2.push(tmp1);						setupCall( function(event:Event, passThroughData:*):void			{				assertThat( loader.result, arrayWithSize( 2 ));			},			tmp2 );		}		
 	}
 }

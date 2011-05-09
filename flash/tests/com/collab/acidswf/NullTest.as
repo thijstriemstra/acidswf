@@ -1,12 +1,8 @@
 // Copyright (c) The AcidSWF Project.// See LICENSE.txt for details.
 package com.collab.acidswf
-{	import com.collab.acidswf.loader.ConnectionLoader;		import org.flexunit.runners.Parameterized;	import org.hamcrest.assertThat;	import org.hamcrest.collection.arrayWithSize;	import org.hamcrest.object.nullValue;		[RunWith("org.flexunit.runners.Parameterized")]	/**	 * Tests for null type.	 * 	 * @language 3.0	 * @playerversion Flash 9.0	 * @since 1.0 	 */
-	public class NullTest
-	{		private var foo					: Parameterized; 		private static var testData		: Array = getData();		public static var gateway		: ConnectionLoader = new ConnectionLoader( testData );		       	[DataPoints(loader="gateway")]		public static var result		: Array;				[Test]		public function create():void		{			assertThat(result[0], nullValue());		}				[Test]		public function list():void		{			assertThat(result[1], arrayWithSize( 2 ));		}		
-		private static function getData():Array
-		{			var tests:Array = [];			
-			tests.push(null);						var list:Array = [null, null];			tests.push(list);						return tests;
-		}
-		
+{	import flash.events.Event;		import org.hamcrest.assertThat;	import org.hamcrest.collection.arrayWithSize;	import org.hamcrest.object.nullValue;
+		/**	 * Tests for null type.	 * 	 * @language 3.0	 * @playerversion Flash 9.0	 * @since 1.0 	 */
+	public class NullTest extends BaseTest
+	{		[Before]		public function setUp():void		{			setup();		}				[After]		public function tearDown():void		{			teardown();		}				[Test(async)]		public function create():void		{			setupCall( function(event:Event, passThroughData:*):void			{				assertThat( loader.result, nullValue());			},			null );		}				[Test(async)]		public function list():void		{			var list:Array = [ null, null ];						setupCall( function(event:Event, passThroughData:*):void			{				assertThat( loader.result, arrayWithSize( 2 ));			},			list );		}		
 	}
 }
