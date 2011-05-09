@@ -7,12 +7,10 @@
 
 import logging
 
-from twisted.python import log
 from twisted.web import server, resource, static
 
 from rtmpy.server import ServerFactory
 
-from pyamf import register_class
 from pyamf.remoting.gateway.twisted import TwistedGateway
 
 from acidswf import data
@@ -23,20 +21,23 @@ class WebServer(server.Site):
     Webserver serving an AMF gateway and crossdomain.xml file.
     """
 
-    def __init__(self, services, logLevel=logging.ERROR,
+    def __init__(self, services, logLevel=logging.DEBUG,
                  crossdomain='crossdomain.xml'):
-        observer = log.PythonLoggingObserver()
-
-        logging.basicConfig(
-            level=logLevel, datefmt='%Y-%m-%d %H:%M:%S%z',
-            format='%(asctime)s [%(name)s] %(message)s'
-        )
-
-        self._registerClass(data.RemoteClass)
-        self._registerClass(data.ExternalizableClass)
-
+        # create logger
+        gateway_logger = logging.getLogger("WebServer")
+        gateway_logger.setLevel(logging.DEBUG)
+        
+        # create console handler and set level to debug
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.DEBUG)
+        
+        formatter = logging.Formatter("%(asctime)s [%(name)s] %(message)s",
+                                      '%Y-%m-%d %H:%M:%S%z')
+        ch.setFormatter(formatter)
+        gateway_logger.addHandler(ch)
+  
         gateway = TwistedGateway(services, expose_request=False,
-                                 logger=logging)
+                                 logger=gateway_logger, debug=True)
 
         root = resource.Resource()
         root.putChild('', gateway)
@@ -44,14 +45,6 @@ class WebServer(server.Site):
                       defaultType='application/xml'))
 
         server.Site.__init__(self, root)
-
-
-    def _registerClass(self, klass): 
-        """
-        Map ActionScript class to Python class.
-        """
-        register_class(klass, '%s.%s' % (data.NAMESPACE,
-                                         klass.__class__.__name__))
 
 
 class RTMPServer(ServerFactory):

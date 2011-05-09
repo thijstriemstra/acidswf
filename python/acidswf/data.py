@@ -7,6 +7,11 @@
 @since: 1.0
 """
 
+import sys
+
+from pyamf import register_package
+
+
 NAMESPACE = 'com.collab.acidswf'
 
 
@@ -88,3 +93,6 @@ class ExternalizableClass(object):
         output.writeUnsignedInt(1)
         output.writeUTF("Hello world!")
         output.writeUTFBytes("Hello world!")
+
+
+register_package(sys.modules[__name__], NAMESPACE)
