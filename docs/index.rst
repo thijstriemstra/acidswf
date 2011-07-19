@@ -118,6 +118,9 @@ Installation
      cd /path/to/acidswf/python
      sudo python setup.py install
 
+6. Make sure the ``flashplayer`` property in :file:`/path/to/acidswf/flash/build.xml`
+   is pointing to a valid Flash Player Debugger executable.
+
 
 Running AcidSWF
 ---------------
