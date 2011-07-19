@@ -1,4 +1,5 @@
 .DS_Store
+*.egg-info
 build.properties
 *.pyc
 .settings
