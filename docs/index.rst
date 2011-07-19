@@ -31,38 +31,40 @@ When all tests completed, or any errors occur, the build script will:
 Dependencies
 ------------
 
-To use AcidSWF you'll need the following software pre-installed on your system:
+To use AcidSWF you'll need the minimum version of the following
+software pre-installed on your system:
 
-===========================  ========
-Name                         Version
-===========================  ========
+===========================  ============================
+Name                         Minimum Version
+===========================  ============================
 Ant_                         1.7
 `Flex SDK`_                  4.1
 FlexUnit_                    4.1
 `Flash Player`_ (Debugger)   9.0
 `Hamcrest AS3`_              1.0.2
 Java_                        1.5
-===========================  ========
+===========================  ============================
 
 The default configuration for Python also requires:
 
-===========================  ========
-Name                         Version
-===========================  ========
+===========================  ============================
+Name                         Minimum Version
+===========================  ============================
 Python_                      2.5
+Distribute_                  0.6.11
 Twisted_                     11.0
 PyAMF_                       0.6
 RTMPy_                       0.2
-===========================  ========
+===========================  ============================
 
-To build the documentation you need the following software:
+To build the documentation you need the following:
 
-===========================  ========
-Name                         Version
-===========================  ========
+===========================  ============================
+Name                         Minimum Version
+===========================  ============================
 Sphinx_                      1.0
 Beam_ theme                  N/A
-===========================  ========
+===========================  ============================
 
 
 Installation
@@ -91,8 +93,8 @@ Installation
 
     set FLEX_HOME="C:\Program Files\Adobe\Adobe Flex Builder 3 Plug-in\sdks\4.1.0"
  
-3. Create a new folder in :file:`/path/to/acidswf/flash/lib` and then copy the
-   following files in that folder:
+3. Create a new folder called ``lib`` at :file:`/path/to/acidswf/flash/lib` and then copy the
+   following files there:
 
   - `Hamcrest AS3`_ 
    - :file:`hamcrest.swc`
@@ -105,17 +107,24 @@ Installation
 4. Create a new file in :file:`build.properties` by making a copy of the
    template at :file:`/path/to/acidswf/build.properties.template`::
 
-     cd acidswf
+     cd /path/to/acidswf
      cp build.properties.template build.properties
 
    In this file you adjust the host/port settings for the RTMP and AMF servers.
+
+5. Install the ``acidswf`` Python package using the ``install`` or ``develop``
+   command::
+
+     cd /path/to/acidswf/python
+     sudo python setup.py install
 
 
 Running AcidSWF
 ---------------
 
-Run Ant from the root of your AcidSWF source directory::
+Run Ant from the root of the AcidSWF source directory::
 
+    cd /path/to/acidswf
     ant
 
 This will print the script's progress on stdout. For each test suite an HTML
@@ -140,4 +149,5 @@ report will be created in the :file:`flash/bin/report/html` folder.
 .. _FlexUnit:    http://flexunit.org
 .. _Python:         http://python.org
 .. _Git:      http://git-scm.com
+.. _Distribute:    http://packages.python.org/distribute
 .. _browse online:  http://github.com/thijstriemstra/acidswf
