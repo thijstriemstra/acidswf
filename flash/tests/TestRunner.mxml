@@ -12,6 +12,7 @@ creationComplete="runTests();">
 		  import com.collab.acidswf.ByteArrayTest;
 		  import com.collab.acidswf.CustomClassTest;
 		  import com.collab.acidswf.DateTest;
+		  import com.collab.acidswf.DictionaryTest;
 		  import com.collab.acidswf.ExternalizableTest;
 		  import com.collab.acidswf.NullTest;
 		  import com.collab.acidswf.NumberTest;
@@ -38,7 +39,7 @@ creationComplete="runTests();">
             var amf0_tests:Array = [ArrayTest,BooleanTest,CustomClassTest,DateTest,NullTest,NumberTest,ObjectTest,StringTest,UndefinedTest];
             var amf3_tests:Array = [ByteArrayTest,ExternalizableTest,RemoteClassTest,UnsupportedTest,XMLDocumentTest,XMLTest];
             var flex_tests:Array = [ArrayCollectionTest,ObjectProxyTest];
-			var fp10_tests:Array = [VectorTest];
+			var fp10_tests:Array = [DictionaryTest,VectorTest];
             
             if ( objectEncoding == 0 )
             {
